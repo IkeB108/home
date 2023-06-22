@@ -59,5 +59,5 @@ function generateProjectCards(json){
   }
   
   //Delete the template card
-  // $("#templatePCardAnchor").remove()
+  $("#templatePCardAnchor").remove()
 }
