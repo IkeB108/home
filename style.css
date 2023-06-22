@@ -109,7 +109,7 @@ p, a {
   padding: var(--twoUnits);
   
   display: grid;
-  grid-template-rows: 6fr 1fr 5fr;
+  grid-template-rows: 6fr 1fr 2fr;
   grid-column-gap:var(--unit);
   
   user-select:none;
@@ -128,8 +128,9 @@ p, a {
   margin-bottom:var(--unit);
   padding: var(--unit);
   
-  background-image: url("https://media.cntraveler.com/photos/61eae2a9fe18edcbd885cb01/1:1/w_3031,h_3031,c_limit/Seychelles_GettyImages-1169388113.jpg");
+  background-image: url("ikeBischof.jpg");
   background-size: cover;
+  background-position: center;
   
   display: grid;
   grid-template-columns: 1fr repeat(3, var(--pCardIconWidth));
@@ -148,6 +149,7 @@ p, a {
   width:100%;
   align-items:center;
   padding-top:10px;
+  margin-bottom:5px;
 }
 
 .pCardTitle {
@@ -159,6 +161,7 @@ p, a {
   display:inline-block;
   overflow:hidden;
   white-space:wrap;
+  line-height:16px;
 }
 
 .pCardDescription {
@@ -166,7 +169,7 @@ p, a {
   height: 100%;
   font-size:small;
   text-align:justify;
-  color:rgb(182, 182, 182)
+  color:rgb(182, 182, 182);
 }
 
 .pCardReadMore {

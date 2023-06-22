@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="style.css" />
   <link rel="icon" href="favicon.png">
 </head>
-<body style="background-color:black">
+<body style="background-color:black" onload="onLoad()">
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
   <script src="script.js"></script>
   
@@ -28,7 +28,7 @@
   
   <h2>All Projects</h2>
   <div class="pCardGrid">
-    <a class="pCardAnchor" href="https://www.youtube.com">
+    <a id="templatePCardAnchor" class="pCardAnchor" href="#ikebotLogoImage">
       <div class="pCard">
         <div class="pCardImageContainer">
           <div class="emptyDiv"></div> <!-- for keeping icons in the bottom right corner of the image-->
@@ -36,76 +36,43 @@
           <div class="emptyDiv"></div>
           <div class="emptyDiv"></div>
           <div class="emptyDiv"></div>
-          <div class="iconDiv">
-            <image src="interactIcon.png" class="iconImage"></image>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <!-- <div class="iconDiv interactIcon">
+            <image src="icons/interactIcon.png" class="iconImage"></image>
           </div>
-          <div class="iconDiv">
-            <image src="controllerIcon.png" class="iconImage"></image>
+          <div class="iconDiv gameIcon">
+            <image src="icons/gameIcon.png" class="iconImage"></image>
           </div>
-          <div class="iconDiv">
-            <image src="youtubeIcon.png" class="iconImage"></image>
-          </div>
+          <div class="iconDiv youtubeIcon">
+            <image src="icons/youtubeIcon.png" class="iconImage"></image>
+          </div> -->
         </div>
         <div class="pCardTitleContainer">
-          <span class="pCardTitle">Very Very Long Project Title</span>
+          <span class="pCardTitle">Template Project Title</span>
           <!-- <div class="testDiv"></div>
           <div class="testDiv"></div>
           <div class="testDiv"></div> -->
         </div>      
         <div class="pCardDescriptionContainer">
-          <span class="pCardDescription">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </span>
+          <span class="pCardDescription">Template project description</span>
         </div>
         <div class="pCardReadMoreContainer">
           <div class="pCardReadMore">Read More ⇒</div>
-          <div class="pCardDate">May 3, 2023</div>
+          <div class="pCardDate">Date</div>
         </div>
         
         
       </div>
     </a>
-    
-    <a class="pCardAnchor" href="https://www.youtube.com">
-      <div class="pCard">
-        <div class="pCardImageContainer">
-          <div class="emptyDiv"></div> <!-- for keeping icons in the bottom right corner of the image-->
-          <div class="emptyDiv"></div>
-          <div class="emptyDiv"></div>
-          <div class="emptyDiv"></div>
-          <div class="emptyDiv"></div>
-          <div class="testDiv"></div>
-          <div class="testDiv"></div>
-          <div class="testDiv"></div>
-        </div>
-        <div class="pCardTitleContainer">
-          <span class="pCardTitle">Very Very Long Project Title</span>
-          <!-- <div class="testDiv"></div>
-          <div class="testDiv"></div>
-          <div class="testDiv"></div> -->
-        </div>      
-        <div class="pCardDescriptionContainer">
-          <span class="pCardDescription">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </span>
-        </div>
-        <div class="pCardReadMoreContainer">
-          <div class="pCardReadMore">Read More ⇒</div>
-          <div class="pCardDate">May 3, 2023</div>
-        </div>
-        
-        
-      </div>
-    </a>
-    
-    <div class="pCard"></div>
-    <div class="pCard"></div>
-    <div class="pCard"></div>
-    <div class="pCard"></div>
-    <div class="pCard"></div>
   </div>
   <h2>About Me</h2>
   <div id="aboutMe">
     <image id="ikeBischofImage" src="ikeBischof.jpg"></image>
     <div id="aboutMeTextContainer">
       <p style="font-weight:bold; margin-top:0px;">Ike Bischof</p>
-      <p style="text-align:justify">I do web development, video, and animation. I make interactive web projects, which sometimes includes games, and I have a YouTube channel called Ikebot. I like to use coding to solve practical problems like automating tedious work, and impractical problems, like finding the best method to store the maximum possible amount of information on a cheat sheet for a test. These projects are an opportunity to learn and talk about interesting topics like information theory, game design, or how computers store data.</p>
+      <p style="text-align:justify">I do web development, videos, and animation. I make interactive web projects, which sometimes includes games, and I have a YouTube channel called Ikebot. I like to use coding to solve practical problems like automating tedious work, and impractical problems, like finding the best method to store the maximum possible amount of information on a cheat sheet for a test. These projects are an opportunity to learn and talk about interesting topics like information theory, game design, or how computers store data.</p>
       <p>I'm currently a senior at Sacramento State University. I live in Roseville, California.</p>
       <p style="display:inline">Contact:</p>
       <a id="mailToLink" style="display:inline" href="mailto:ikebot33@protonmail.com">ikebot33@protonmail.com</a>

@@ -1,0 +1,42 @@
+[
+  {
+    "name":"dataInColors",
+    "title":"Data In Colors",
+    "icons":"youtube interact",
+    "shortDescription":"Turn anything, such as music or documents, into a mosaic of colors similar to a QR code, by encoding the raw binary as colorful squares.",
+    "longDescription":"",
+    "thumbnail":"dataInColors.png",
+    "link":"https://ikeb108.github.io/goTo/?dataInColors",
+    "date":"Nov 2022"
+  },
+  {
+    "name":"digitsInColors",
+    "title":"Digits In Colors",
+    "icons":"youtube interact",
+    "shortDescription":"Visualize numbers as geometric shapes by breaking them down into their prime factors.",
+    "longDescription":"",
+    "thumbnail":"digitsInColors.png",
+    "link":"https://ikeb108.github.io/goTo/?digitsInColors",
+    "date":"Nov 2022"
+  },
+  {
+    "name":"doodleTheater",
+    "title":"Doodle Theater",
+    "icons":"interact",
+    "shortDescription":"Puppeteer two-dimensional digital puppets using the mouse and keyboard with up to two other people.",
+    "longDescription":"",
+    "thumbnail":"doodleTheater.png",
+    "link":"https://ikeb108.github.io/goTo/?doodleTheater",
+    "date":"Dec 2021"
+  },
+  {
+    "name":"beetleRace",
+    "title":"Beetle Race",
+    "icons":"game",
+    "shortDescription":"Swap back and forth between four playable characters as you navigate an underground maze to collect candy corn as fast as possible.",
+    "longDescription":"",
+    "thumbnail":"beetleRace.png",
+    "link":"https://ikeb108.github.io/goTo/?beetleRace",
+    "date":"Nov 2019"
+  }
+]
