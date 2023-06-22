@@ -22,6 +22,29 @@ div {
   color:white; /*Default text color should be white*/
 }
 
+.center {
+  margin:auto;
+}
+
+#ikebotTitle {
+  text-align:center;
+}
+
+#ikebotLogoImage {
+  margin-top:100px;
+  width: 100%;
+  height: 100%
+}
+
+#ikebotLogoContainer {
+  width: 250px;
+  margin: auto;
+}
+
+#ikebotDescriptionText {
+  text-align:center;
+}
+
 .pCardAnchor {
   text-decoration:none;
 }
