@@ -1,11 +1,11 @@
 
 
 :root {
-  --pCardMinWidth: 200px;
-  --pCardHeight: 250px;
+  --pCardMinWidth: 250px;
+  --pCardHeight: 300px;
   
   --cornerRoundUnit: 5px;
-  --pCardIconWidth: 20px;
+  --pCardIconWidth: 40px;
   
   --unit: 5px;
   --twoUnits: 10px;
@@ -16,14 +16,48 @@ body {
   padding:var(--unit);
   margin:auto; /*Centers the body*/
   color:white; /*Default text color should be white*/
+  background-image:url("chalkHorizontal.jpg");
+  background-attachment:fixed;
+  background-repeat:no-repeat;
+  background-size: 100% 100%;
 }
 
 div {
   color:white; /*Default text color should be white*/
 }
 
+h2 {
+  margin-top:40px;
+}
+
+p, a {
+  font-size: large;
+  text-decoration: none;
+}
+
+#mailToLink {
+  text-decoration:none;
+  color:rgb(255, 255, 174)
+}
+
 .center {
   margin:auto;
+  text-align:center;
+}
+
+#navMenu {
+  margin-top:20px;
+}
+
+.navMenuOption, .navMenuOptionSeparator {
+  display:inline;
+  margin-left:10px;
+  margin-right:10px;
+  font-size:24px;
+}
+
+.navMenuOption {
+  color:rgb(255, 255, 149);
 }
 
 #ikebotTitle {
@@ -43,6 +77,23 @@ div {
 
 #ikebotDescriptionText {
   text-align:center;
+  max-width: 600px;
+}
+
+
+#ikeBischofImage {
+  width: 100%;
+  height: 100%;
+  object-fit:cover;
+  object-position:right;
+}
+
+#aboutMe {
+  max-width: 800px;
+  display: grid;
+  grid-template-columns: 2fr 4fr;
+  grid-column-gap: 30px;
+  margin-bottom:100px;
 }
 
 .pCardAnchor {
@@ -96,6 +147,7 @@ div {
 .pCardTitleContainer {
   width:100%;
   align-items:center;
+  padding-top:10px;
 }
 
 .pCardTitle {
@@ -113,6 +165,7 @@ div {
   width: 100%;
   height: 100%;
   font-size:small;
+  text-align:justify;
   color:rgb(182, 182, 182)
 }
 
@@ -132,6 +185,16 @@ div {
   font-style:italic;
   color:rgb(182,182,182);
   text-align:right;
+}
+
+.iconDiv{
+  /* background-color:red; */
+}
+
+.iconImage{
+  width:100%;
+  height:100%;
+  object-fit:scale-down;
 }
 
 .testDiv{
@@ -155,6 +218,7 @@ div {
   
   body {
     width: 90%;
+    background-image:url("chalkVertical.jpg")
   }
 }
 
@@ -168,5 +232,6 @@ div {
   
   body {
     width: 80%;
+    background-image:url("chalkHorizontal.jpg")
   }
 }
