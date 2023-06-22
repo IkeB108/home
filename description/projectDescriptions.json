@@ -3,7 +3,7 @@
     "name":"dataInColors",
     "title":"Data In Colors",
     "icons":"youtube interact",
-    "shortDescription":"Turn anything, such as music or documents, into a mosaic of colors similar to a QR code, by encoding the raw binary as colorful squares.",
+    "shortDescription":"Turn anything, such as music or documents, into a mosaic of colors similar to a QR code, by encoding the raw binary as a sequence of colorful squares.",
     "longDescription":"",
     "thumbnail":"dataInColors.png",
     "link":"https://ikeb108.github.io/goTo/?dataInColors",
