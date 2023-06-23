@@ -6,9 +6,22 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
+  <script src="Markdown.Converter.js"></script>
+  <script src="Markdown.Sanitizer.js"></script>
+  <script src="Markdown.Editor.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://ikebot.dev/style.css" />
+  
   <script src="descriptionScript.js"></script>
 </head>
-  <body onload="onLoad()">
-    <p>No query</p>
+  <body onload="onLoad()" style="background-color:black">
+    
+    <div id="ikebotLogoContainer">
+      <a id="ikebotLogoContainerAnchor" href="https://ikebot.dev/">
+        <image src="https://ikebot.dev/profile.png" id="ikebotLogoImage"></image>
+      </a>
+    </div>
+    <a href="https://ikebot.dev">
+      <h1 id="ikebotTitle">Ikebot</h1>
+    </a>
   </body>
 </html>

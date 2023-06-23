@@ -21,7 +21,10 @@ function generateProjectCards(json){
     let newProjectCard = template.clone()
     
     //Set the id of the new project card to the name of the project
-    newProjectCard.attr("id", project.name)
+    newProjectCard.attr("id", project.name + "ProjectCard")
+    
+    //Make it visible
+    newProjectCard.removeAttr("hidden")
     
     //Set the title of the card to the title of the project
     newProjectCard.find(".pCardTitle").text(project.title)
@@ -31,7 +34,7 @@ function generateProjectCards(json){
     newProjectCard.find(".pCardDate").text(project.date)
     newProjectCard.find(".pCardImageContainer").css("background-image", `url("thumbnails/${project.thumbnail}")`)
     
-    //Add any icons that apply
+    //Add any icons that apply (interact, youtube, and/or game)
     let iconIndex = 7;
     if(project.icons.toLowerCase().includes("interact")){
       let newIconDiv = "<div class=\"iconDiv interactIcon\"><image src=\"icons/interactIcon.png\" class=\"iconImage\"></image></div>"
@@ -53,7 +56,7 @@ function generateProjectCards(json){
     newProjectCard.attr("href", "description/?" + project.name)
     
     //Temporarily, set href to the actual project itself
-    newProjectCard.attr("href", project.link)
+    // newProjectCard.attr("href", project.link)
     
     $(".pCardGrid").append(newProjectCard)
   }
