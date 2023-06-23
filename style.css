@@ -110,7 +110,7 @@ p, a {
 }
 
 #ikebotLogoContainer {
-  width: 250px;
+  width: 108px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -232,10 +232,6 @@ p, a {
   font-style:italic;
   color:rgb(182,182,182);
   text-align:right;
-}
-
-.iconDiv{
-  /* background-color:red; */
 }
 
 .iconImage{
