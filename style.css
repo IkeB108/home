@@ -131,7 +131,7 @@ p, a {
 #aboutMe {
   max-width: 800px;
   display: grid;
-  grid-template-columns: 2fr 4fr;
+  grid-template-columns: 1fr 2fr;
   grid-column-gap: 30px;
 }
 
