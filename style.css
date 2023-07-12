@@ -23,6 +23,10 @@ body {
   padding-bottom:200px;
 }
 
+.descriptionBody {
+  max-width: 600px;
+}
+
 div {
   color:white; /*Default text color should be white*/
 }
@@ -32,7 +36,7 @@ h1 {
   color:white;
 }
 
-h2 {
+#allProjectsHeader {
   margin-top:40px;
 }
 
@@ -41,18 +45,27 @@ p, a {
   text-decoration: none;
 }
 
-.buttonInDescription {
+.db { /*Description Button: For buttons in description pages */
   width:fit-content;
   height:fit-content;
   padding:10px;
   background-color:rgb(155, 45, 45);
   border-radius:var(--cornerRoundUnit);
+  border-style:none;
   text-decoration:none;
   color:white;
   margin-top:15px;
   margin-left:auto;
   margin-right:auto;
   display:block;
+}
+
+.db:hover {
+  background-color:rgb(192, 84, 84);
+}
+
+.di { /*Description Image: For images in description pages */
+  width: 100%
 }
 
 #mailToLink {
@@ -135,7 +148,7 @@ p, a {
   grid-column-gap: 30px;
 }
 
-#noScriptWarning {
+#noScriptWarning, #makePageWarning {
   color:rgb(255, 193, 193);
 }
 

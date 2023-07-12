@@ -1,8 +1,9 @@
 console.log("Press 's' to save the webpage contents to the clipboard.")
 document.onkeypress = function(e) { 
   if(e.key == 's'){
+    $("#makePageWarning").remove()
     c = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <title>Ikebot</title>\n  <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n  <meta name=\"description\" content=\"\" />\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n  <link rel=\"icon\" href=\"favicon.png\">\n</head>"
-    c += `<body style="background-color:black" onload="onLoad()">\n`
+    c += `<body style="background-color:black">\n`
     c += document.body.innerHTML.split("<!-- Code injected by live-server -->")[0]
     c += "\n"
     c += `</body>\n</html>`
