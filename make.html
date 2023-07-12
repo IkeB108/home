@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ikebot</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="icon" href="favicon.png">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+</head>
+<body style="background-color:black" onload="onLoad()">
+  <div id="ikebotLogoContainer">
+    <img src="profile255px.png" id="ikebotLogoImage" alt="A black square-shaped head of a cartoon robot with yellow circular eyes"></img>
+  </div>
+  <h1 id="ikebotTitle">Ikebot</h1>
+  
+  
+  
+  <p class="center" id="ikebotDescriptionText">I develop interactive web apps, web games, and videos that explore creative ideas like visualizing numbers as intricate recursive shapes, turning binary data into colorful mosaics, or puppeteering digital cartoon characters.</p>
+  <div class="center" id="navMenu">
+    <a class="navMenuOption" href="#aboutMe">About Me</a>
+    <p class="navMenuOptionSeparator">•</p>
+    <a class="navMenuOption" href="#aboutMe">Contact</a>
+  </div>
+  
+  <div class="socialIconContainer">
+    <a href="https://youtube.com/c/ikebot" id="youtubeIconAnchor">
+      <img src="icons/social_youtube.png" class="socialIcon" alt="YouTube"></img>
+    </a>
+    <a href="https://www.instagram.com/ikebotofficial/" id="instagramIconAnchor">
+      <img src="icons/social_instagram.png" class="socialIcon" alt="Instagram"></img>
+    </a>
+    <a href="https://twitter.com/Ike_Bischof" id="twitterIconAnchor">
+      <img src="icons/social_twitter.png" class="socialIcon" alt="Twitter"></img>
+    </a>
+  </div>
+  
+  <h2>All Projects</h2>
+  <noscript>
+    <p id="noScriptWarning">⚠️ It appears Javascript is disabled in your browser. You may experience issues running some or all of these projects.</p>
+  </noscript>
+  <div class="pCardGrid">
+    <a id="templatePCardAnchor" class="pCardAnchor" href="#ikebotLogoImage" hidden>
+      <div class="pCard">
+        <div class="pCardImageContainer">
+          <div class="emptyDiv"></div> <!-- for keeping icons in the bottom right corner of the image-->
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <!-- <div class="iconDiv interactIcon">
+            <img src="icons/interactIcon.png" class="iconImage"></img>
+          </div>
+          <div class="iconDiv gameIcon">
+            <img src="icons/gameIcon.png" class="iconImage"></img>
+          </div>
+          <div class="iconDiv youtubeIcon">
+            <img src="icons/youtubeIcon.png" class="iconImage"></img>
+          </div> -->
+        </div>
+        <div class="pCardTitleContainer">
+          <span class="pCardTitle">Template Project Title</span>
+          <!-- <div class="testDiv"></div>
+          <div class="testDiv"></div>
+          <div class="testDiv"></div> -->
+        </div>      
+        <div class="pCardDescriptionContainer">
+          <span class="pCardDescription">Template project description</span>
+        </div>
+        <div class="pCardReadMoreContainer">
+          <div class="pCardReadMore">Read More ⇒</div>
+          <div class="pCardDate">Date</div>
+        </div>
+        
+        
+      </div>
+    </a>
+  </div>
+  <h2>About Me</h2>
+  <div id="aboutMe">
+    <img id="ikeBischofImage" src="ikeBischof.png" alt="Ike Bischof wearing an Ikebot costume: a black shirt with yellow sleeves and yellow buttons."></img>
+    <div id="aboutMeTextContainer">
+      <p style="font-weight:bold; margin-top:0px;">Ike Bischof</p>
+      <p style="text-align:justify">I code with Javascript to make web apps and web games that explore a variety of creative ideas involving math, computer science, game design, and other topics. These projects are an opportunity to learn and discuss concepts like information theory, music theory, or game development, which I do here and on my YouTube channel, Ikebot.</p>
+      <p style="text-align:justify">Many of my projects are made with a popular Javascript library called P5JS, which is designed for creative coding and building generative and interactive art.</p>
+      <p style="text-align:justify">I'm currently a senior at Sacramento State University. I live in Roseville, California.</p>
+      <p style="display:inline">Contact:</p>
+      <a id="mailToLink" style="display:inline" href="mailto:ikebot33@protonmail.com">ikebot33@protonmail.com</a>
+    </div>
+    
+  </div>
+  
+</body>
+</html>

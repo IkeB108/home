@@ -7,13 +7,10 @@
   <meta name="description" content="" />
   <link rel="stylesheet" type="text/css" href="style.css" />
   <link rel="icon" href="favicon.png">
-</head>
-<body style="background-color:black" onload="onLoad()">
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
-  <script src="script.js"></script>
-  
+</head><body style="background-color:black" onload="onLoad()">
+
   <div id="ikebotLogoContainer">
-    <image src="profile255px.png" id="ikebotLogoImage"></image>
+    <img src="profile255px.png" id="ikebotLogoImage" alt="A black square-shaped head of a cartoon robot with yellow circular eyes">
   </div>
   <h1 id="ikebotTitle">Ikebot</h1>
   
@@ -28,21 +25,99 @@
   
   <div class="socialIconContainer">
     <a href="https://youtube.com/c/ikebot" id="youtubeIconAnchor">
-      <image src="icons/social_youtube.png" class="socialIcon"></image>
+      <img src="icons/social_youtube.png" class="socialIcon" alt="YouTube">
     </a>
     <a href="https://www.instagram.com/ikebotofficial/" id="instagramIconAnchor">
-      <image src="icons/social_instagram.png" class="socialIcon"></image>
+      <img src="icons/social_instagram.png" class="socialIcon" alt="Instagram">
     </a>
     <a href="https://twitter.com/Ike_Bischof" id="twitterIconAnchor">
-      <image src="icons/social_twitter.png" class="socialIcon"></image>
+      <img src="icons/social_twitter.png" class="socialIcon" alt="Twitter">
     </a>
   </div>
   
   <h2>All Projects</h2>
+  <noscript>
+    <p id="noScriptWarning">⚠️ It appears Javascript is disabled in your browser. You may experience issues running some or all of these projects.</p>
+  </noscript>
   <div class="pCardGrid">
-    <a id="templatePCardAnchor" class="pCardAnchor" href="#ikebotLogoImage" hidden>
+    
+  <a id="dataInColorsProjectCard" class="pCardAnchor" href="description/?dataInColors">
       <div class="pCard">
-        <div class="pCardImageContainer">
+        <div class="pCardImageContainer" title="A photo of a playground overlayed with a grid of colorful squares. The photo is circular, in the shape of a vinyl record." style="background-image: url(&quot;thumbnails/dataInColors.png&quot;);">
+          <div class="emptyDiv"></div> <!-- for keeping icons in the bottom right corner of the image-->
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="iconDiv youtubeIcon"><img src="icons/youtubeIcon.png" class="iconImage" alt="YouTube"></div>
+          <div class="iconDiv interactIcon"><img src="icons/interactIcon.png" class="iconImage" alt="interactive"></div>
+          <!-- <div class="iconDiv interactIcon">
+            <img src="icons/interactIcon.png" class="iconImage"></img>
+          </div>
+          <div class="iconDiv gameIcon">
+            <img src="icons/gameIcon.png" class="iconImage"></img>
+          </div>
+          <div class="iconDiv youtubeIcon">
+            <img src="icons/youtubeIcon.png" class="iconImage"></img>
+          </div> -->
+        </div>
+        <div class="pCardTitleContainer">
+          <span class="pCardTitle">Data In Colors</span>
+          <!-- <div class="testDiv"></div>
+          <div class="testDiv"></div>
+          <div class="testDiv"></div> -->
+        </div>      
+        <div class="pCardDescriptionContainer">
+          <span class="pCardDescription">Turn anything, such as music or documents, into a mosaic of colors similar to a QR code, by encoding the raw binary as a sequence of colorful squares.</span>
+        </div>
+        <div class="pCardReadMoreContainer">
+          <div class="pCardReadMore">Read More ⇒</div>
+          <div class="pCardDate">Nov 2022</div>
+        </div>
+        
+        
+      </div>
+    </a><a id="digitsInColorsProjectCard" class="pCardAnchor" href="description/?digitsInColors">
+      <div class="pCard">
+        <div class="pCardImageContainer" title="A colorful collection of shapes organized in a branching formation to represent the number 108." style="background-image: url(&quot;thumbnails/digitsInColors.png&quot;);">
+          <div class="emptyDiv"></div> <!-- for keeping icons in the bottom right corner of the image-->
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="iconDiv youtubeIcon"><img src="icons/youtubeIcon.png" class="iconImage" alt="YouTube"></div>
+          <div class="iconDiv interactIcon"><img src="icons/interactIcon.png" class="iconImage" alt="interactive"></div>
+          <!-- <div class="iconDiv interactIcon">
+            <img src="icons/interactIcon.png" class="iconImage"></img>
+          </div>
+          <div class="iconDiv gameIcon">
+            <img src="icons/gameIcon.png" class="iconImage"></img>
+          </div>
+          <div class="iconDiv youtubeIcon">
+            <img src="icons/youtubeIcon.png" class="iconImage"></img>
+          </div> -->
+        </div>
+        <div class="pCardTitleContainer">
+          <span class="pCardTitle">Digits In Colors</span>
+          <!-- <div class="testDiv"></div>
+          <div class="testDiv"></div>
+          <div class="testDiv"></div> -->
+        </div>      
+        <div class="pCardDescriptionContainer">
+          <span class="pCardDescription">Visualize numbers as geometric shapes by breaking them down into their prime factors.</span>
+        </div>
+        <div class="pCardReadMoreContainer">
+          <div class="pCardReadMore">Read More ⇒</div>
+          <div class="pCardDate">Nov 2022</div>
+        </div>
+        
+        
+      </div>
+    </a><a id="doodleTheaterProjectCard" class="pCardAnchor" href="description/?doodleTheater">
+      <div class="pCard">
+        <div class="pCardImageContainer" title="A doodle of a chicken, a unicorn, a hedgehog, and a pig." style="background-image: url(&quot;thumbnails/doodleTheater.png&quot;);">
           <div class="emptyDiv"></div> <!-- for keeping icons in the bottom right corner of the image-->
           <div class="emptyDiv"></div>
           <div class="emptyDiv"></div>
@@ -50,38 +125,74 @@
           <div class="emptyDiv"></div>
           <div class="emptyDiv"></div>
           <div class="emptyDiv"></div>
-          <div class="emptyDiv"></div>
+          <div class="iconDiv interactIcon"><img src="icons/interactIcon.png" class="iconImage" alt="interactive"></div>
           <!-- <div class="iconDiv interactIcon">
-            <image src="icons/interactIcon.png" class="iconImage"></image>
+            <img src="icons/interactIcon.png" class="iconImage"></img>
           </div>
           <div class="iconDiv gameIcon">
-            <image src="icons/gameIcon.png" class="iconImage"></image>
+            <img src="icons/gameIcon.png" class="iconImage"></img>
           </div>
           <div class="iconDiv youtubeIcon">
-            <image src="icons/youtubeIcon.png" class="iconImage"></image>
+            <img src="icons/youtubeIcon.png" class="iconImage"></img>
           </div> -->
         </div>
         <div class="pCardTitleContainer">
-          <span class="pCardTitle">Template Project Title</span>
+          <span class="pCardTitle">Doodle Theater</span>
           <!-- <div class="testDiv"></div>
           <div class="testDiv"></div>
           <div class="testDiv"></div> -->
         </div>      
         <div class="pCardDescriptionContainer">
-          <span class="pCardDescription">Template project description</span>
+          <span class="pCardDescription">Puppeteer two-dimensional digital puppets using the mouse and keyboard with up to two other people.</span>
         </div>
         <div class="pCardReadMoreContainer">
           <div class="pCardReadMore">Read More ⇒</div>
-          <div class="pCardDate">Date</div>
+          <div class="pCardDate">Dec 2021</div>
         </div>
         
         
       </div>
-    </a>
-  </div>
+    </a><a id="beetleRaceProjectCard" class="pCardAnchor" href="description/?beetleRace">
+      <div class="pCard">
+        <div class="pCardImageContainer" title="The title screen for Beetle Race, featuring the playable characters in pixel art." style="background-image: url(&quot;thumbnails/beetleRace.png&quot;);">
+          <div class="emptyDiv"></div> <!-- for keeping icons in the bottom right corner of the image-->
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="emptyDiv"></div>
+          <div class="iconDiv gameIcon"><img src="icons/gameIcon.png" class="iconImage" alt="game"></div>
+          <!-- <div class="iconDiv interactIcon">
+            <img src="icons/interactIcon.png" class="iconImage"></img>
+          </div>
+          <div class="iconDiv gameIcon">
+            <img src="icons/gameIcon.png" class="iconImage"></img>
+          </div>
+          <div class="iconDiv youtubeIcon">
+            <img src="icons/youtubeIcon.png" class="iconImage"></img>
+          </div> -->
+        </div>
+        <div class="pCardTitleContainer">
+          <span class="pCardTitle">Beetle Race</span>
+          <!-- <div class="testDiv"></div>
+          <div class="testDiv"></div>
+          <div class="testDiv"></div> -->
+        </div>      
+        <div class="pCardDescriptionContainer">
+          <span class="pCardDescription">Swap back and forth between four playable characters as you navigate an underground maze to collect candy corn as fast as possible.</span>
+        </div>
+        <div class="pCardReadMoreContainer">
+          <div class="pCardReadMore">Read More ⇒</div>
+          <div class="pCardDate">Nov 2019</div>
+        </div>
+        
+        
+      </div>
+    </a></div>
   <h2>About Me</h2>
   <div id="aboutMe">
-    <image id="ikeBischofImage" src="ikeBischof.jpg"></image>
+    <img id="ikeBischofImage" src="ikeBischof.png" alt="Ike Bischof wearing an Ikebot costume: a black shirt with yellow sleeves and yellow buttons.">
     <div id="aboutMeTextContainer">
       <p style="font-weight:bold; margin-top:0px;">Ike Bischof</p>
       <p style="text-align:justify">I code with Javascript to make web apps and web games that explore a variety of creative ideas involving math, computer science, game design, and other topics. These projects are an opportunity to learn and discuss concepts like information theory, music theory, or game development, which I do here and on my YouTube channel, Ikebot.</p>
@@ -93,5 +204,6 @@
     
   </div>
   
+
 </body>
 </html>

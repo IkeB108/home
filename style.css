@@ -125,7 +125,7 @@ p, a {
   width: 100%;
   height: 100%;
   object-fit:cover;
-  object-position:right;
+  object-position:center;
 }
 
 #aboutMe {
@@ -133,6 +133,10 @@ p, a {
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-column-gap: 30px;
+}
+
+#noScriptWarning {
+  color:rgb(255, 193, 193);
 }
 
 .ytEmbedInDescription {
@@ -251,7 +255,7 @@ p, a {
   
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 655px) {
   /* If the screen width is less than 600px, treat it like mobile */
   .pCardGrid {
     display: grid;
@@ -263,9 +267,18 @@ p, a {
     width: 90%;
     background-image:url("chalkVertical.jpg")
   }
+  
+  #ikeBischofImage {
+    display:none;
+  }
+  
+  #aboutMe {
+    grid-template-columns: 1fr
+  }
+
 }
 
-@media screen and (min-width: 601px) {
+@media screen and (min-width: 656px) {
   /* If the screen width is more than 600px, treat it like PC */
   .pCardGrid {
     display: grid;
@@ -277,4 +290,16 @@ p, a {
     width: 80%;
     background-image:url("chalkHorizontal.jpg")
   }
+  
+
+  
+  #ikeBischofImage {
+    display:block;
+  }
+  
+  #aboutMe {
+    grid-template-columns: 1fr 2fr;
+  }
+  
+  
 }

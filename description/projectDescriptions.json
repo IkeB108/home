@@ -6,6 +6,7 @@
     "shortDescription":"Turn anything, such as music or documents, into a mosaic of colors similar to a QR code, by encoding the raw binary as a sequence of colorful squares.",
     "longDescription":"",
     "thumbnail":"dataInColors.png",
+    "thumbnailAlt":"A photo of a playground overlayed with a grid of colorful squares. The photo is circular, in the shape of a vinyl record.",
     "link":"https://ikeb108.github.io/goTo/?dataInColors",
     "date":"Nov 2022"
   },
@@ -16,6 +17,7 @@
     "shortDescription":"Visualize numbers as geometric shapes by breaking them down into their prime factors.",
     "longDescription":"",
     "thumbnail":"digitsInColors.png",
+    "thumbnailAlt":"A colorful collection of shapes organized in a branching formation to represent the number 108.",
     "link":"https://ikeb108.github.io/goTo/?digitsInColors",
     "date":"Nov 2022"
   },
@@ -26,6 +28,7 @@
     "shortDescription":"Puppeteer two-dimensional digital puppets using the mouse and keyboard with up to two other people.",
     "longDescription":"",
     "thumbnail":"doodleTheater.png",
+    "thumbnailAlt":"A doodle of a chicken, a unicorn, a hedgehog, and a pig.",
     "link":"https://ikeb108.github.io/goTo/?doodleTheater",
     "date":"Dec 2021"
   },
@@ -36,6 +39,7 @@
     "shortDescription":"Swap back and forth between four playable characters as you navigate an underground maze to collect candy corn as fast as possible.",
     "longDescription":"",
     "thumbnail":"beetleRace.png",
+    "thumbnailAlt":"The title screen for Beetle Race, featuring the playable characters in pixel art.",
     "link":"https://ikeb108.github.io/goTo/?beetleRace",
     "date":"Nov 2019"
   }
