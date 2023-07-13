@@ -67,7 +67,7 @@ function generateProjectCards(json){
     }
     
     //Set href to the description page for this project
-    newProjectCard.attr("href", "description/?" + project.name)
+    newProjectCard.attr("href", "description/" + project.name + ".html")
     
     //Temporarily, set href to the actual project itself
     // newProjectCard.attr("href", project.link)

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ikebot</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="../style.css" />
+  <link rel="icon" href="../favicon.png">
+</head>
+  <body style="background-color:black" class="descriptionBody">
+    
+    <div id="ikebotLogoContainer">
+      <a id="ikebotLogoContainerAnchor" href="../">
+        <image src="../profile255px.png" id="ikebotLogoImage" alt="A black square-shaped head of a cartoon robot with yellow circular eyes"></image>
+      </a>
+    </div>
+    <a href="../">
+      <h1 id="ikebotTitle">Ikebot</h1>
+    </a>
+    
+    <!--
+    Instructions:
+      Use Emmet (built into VS Code) to speed up the process
+      Use h2, h3, and p.
+      For images, use class "di" and remember to add alt text
+        img.di[alt] <== Emmet
+      For buttons, use class "db" with anchors or buttons
+        a.db
+        button.db
+      For YouTube embeds, copy the embed from the video and DELETE
+        the width and height properties it auto-generates.
+      
+    -->
+    <img src="images/vanGogh.png" alt="Starry Night, overlayed with a grid of colorful squares" class="di">
+    <a href="https://ikeb108.github.io/hosting/hallberg/dataInColorsSOR1/" class="db">Visit the Data In Colors Demo</a>
+    <noscript>
+      <p class="warning">⚠️ This project requires Javascript to run, which appears to be disabled in your browser.</p>
+    </noscript>
+    <h2>Data In Colors</h2>
+    <p style="color:rgb(167, 167, 167);"><i>November 2023</i></p>
+    <p>Data In Colors allows users to turn anything, such as music or documents, into a mosaic of colors similar to a QR code, by encoding the raw binary numbers of the file as a sequence of colorful squares. Use the link above to see an example of how it can decode an image that has data in it.</p>
+    <p><span style="color:yellow;font-weight:bold;">For access to the full site,</span> which you can use to create your own encoded images, click here:</p>
+    <a href="https://ikeb108.github.io/hosting/dataInColors/" class="db">Visit Data In Colors</a>
+    <p style="color:rgb(167, 167, 167);"><i>Note: if you want to share an encoded image with others, I <b>don't</b> recommend sending the image over SMS, or social media apps like Instagram or Reddit. This could compress or resize the file by a small amount, which would corrupt the encoded data. You could instead send the file as an attachment in an email, or via something like Google Drive.</i></p>
+    <h2>A Simplified Explanation</h2>
+    <p>This video gives a simplified explanation of how the program works. If you're interested in reading a complete, 100% accurate explanation, there's one further down the page.</p>
+    <iframe src="https://www.youtube.com/embed/bSvOVSmctTw" title="This photo has secret music hidden inside" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <p>Note: The program itself also includes an explanatory animation that is slightly inaccurate for the sake of simplicity.</p>
+    <h2>Inspiration</h2>
+    <p>As I mentioned in the video, my main inspiration for this project was this video by MattKC, where he answers the question, can you fit a whole video game into a QR code?</p>
+    <iframe src="https://www.youtube.com/embed/ExwqNreocpg" title="Can you fit a whole game into a QR code?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <h2>Prototypes</h2>
+    <h3>Prototype #1: Invisible Ink</h3>
+    <p>This was my first prototype of the concept for Data In Colors. It's from 2021, or maybe earlier. Instead of covering the image in a grid of colorful squares, the first version instead just recolored individual pixels of the image. It would modify the image in a way that had hardly any effect on its appearance, which I thought was appealing, because that way, you could create seemingly-normal images that were actually encoded with secret messages. For that reason, I called the prototype 'Invisible Ink', and I proceeded to give it a very ugly logo.</p>
+    <img src="images/invisibleInk.png" alt="The starting screen for Invisible Ink, featuring a logo with a magnifying glass zooming in on an image to reveal hexadecimal numbers inside." class="di">
+    <p>Here is a picture of Starry Night that has been encoded with Invisible Ink. Can you see any artifacts of the encoding?</p>
+    <img src="images/invisibleInkEncoded.png" alt="A desaturated picture of starry night" class="di">
+    <p>The only changes made to the image are in the first row of pixels, at the very top.</p>
+    <p>Unsurprisingly, if you create a program that changes images, but only in ways that are invisible, it's a bit hard for people to understand what it does.</p>
+    <p>So when I decided to apply for Sierra college's Hallberg award, an art scholarship given to four faculty-selected students, I wanted to create a new project with the Invisible Ink concept, but one that actually visually clarifies what it does. Then, I could put the project on my application for the scholarship.</p>
+    <h3>Prototype #2: A Minimum-Viable Product</h3>
+    <p>This program was just for prototyping the visual explanation part of the project, so I could show it to friends and family and get feedback. The truth is, this version of the program doesn't <i>actually</i> decode the image; it just pretends to. And the music it "decodes" is actually just preloaded. But I won't tell anyone if you don't.</p>
+    <img src="images/DICMVP.png" alt="The minimum viable product, with an image of a mountain overlayed with colorful squares and a 'decode' button." class="di">
+    <a href="https://ikeb108.github.io/hosting/dataInColors/proofOfConcept/" class="db">Visit the Minimum-Viable Product</a>
+    <p>For some reason, I still decided to call this prototype "Invisible Ink", even though the "ink" is very much visible this time.</p>
+    <p>If you read the complete explanation of how the program works further down this page, you'll see that the program actually reads the data of the file as <i>hexadecimal code</i> instead of binary. It's kind of a technicality, because both are really just different ways of representing the same thing. But more people are familiar with the concept of binary numbers, which is something I learned from showing people this prototype. The yellow hexadecimal numbers that appear in this prototype were understandably confusing to my friends and family, and it was not clear that they represented the raw data of a digital file.</p>
+    <h3>The final product</h3>
+    <p>In the final version, when it scans your image, it highlights every square, one by one, and it shows you how the color of the square translates to a sequence of binary numbers, which then get added to the bottom of the screen. At the end, all the binary numbers get smushed together to make a digital file.</p>
+    <p>In reality, the program <i>could</i> just decode the image instantly, if I didn't make it slow down to show the user what it's thinking as it goes.</p>
+    <img src="images/DICBinary.png" alt="Data In Colors scanning an image, showing the binary numbers that correspond to one particular colored square." class="di">
+    <a href="https://ikeb108.github.io/hosting/hallberg/dataInColorsSOR1/" class="db">Visit the Final Product Demo</a>
+    <p>When I submitted this project on my Hallberg application, the website came preloaded with some images that I took around Roseville. The audio files that were encoded inside each image contained ambient sounds from the place where the photo was taken, which you can see in the demo.</p>
+    <p>I wrote "The Sounds of Roseville" as the title of each image, as a reference to "The Sounds of Earth", the golden vinyl record that was put on the Voyager I probe. It was made for any aliens that might have found the probe, and it contained some audio recordings of various Earthlings. The record also did something that's kind of the inverse of my project: instead of encoding audio data as an image, it encoded image data as audio. Some of the audio contained data for images of Earthlings--images that the aliens could see if they followed the nonverbal decoding instructions that were engraved on the backside of the record.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/The_Sounds_of_Earth_-_GPN-2000-001976.jpg" alt="The front side of the Sounds of Earth golden vinyl record" class="di" style="display:inline;width:45%">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/The_Sounds_of_Earth_Record_Cover_-_GPN-2000-001978.jpg" alt="The backside of the Sounds of Earth record, engraved with nonverbal instructions and an abstract map of the solar system." style="display:inline;width:45%;" class="di">
+    <p>In the end, I became one of the Hallberg award recipients. Here, you can see Data in Colors on display at the Ridley gallery at Sierra college, along with some other projects I submitted. In the back, there are some framed prints of the Sounds of Roseville images so visitors could get a better look at the very small squares.</p>
+    <img src="images/hallbergWideShot.jpg" alt="The Ridley art gallery, with my projects displayed on monitors sitting on pedastals, and The Sounds of Roseville prints mounted on the wall." class="di">
+    <br><br><br>
+    <img src="images/dataInColorsCode.png" alt="Some code used to make Data In Colors" class="di">
+    
+    <h2>A Complete, 100% Accurate Explanation</h2>
+    <p>A detailed description of how Data In Colors <i>encodes</i> an image with file data (how it creates the colored squares):</p>
+    
+    
+    
+    <h3>Step 1: Resize the Image</h3>
+    <p>The image is going to be covered in a grid of colored squares that I call chunks. To know how wide the chunks should be (in pixels), we need to know how many chunks will be necessary to encode the file, which we calculate using the number of digits in the file's hexadecimal code.</p>
+    <p style="color:lightgrey"><i>Note: this whole process actually uses the hexadecimal representation of the raw data of the file, not the binary representation. It's essentially the same thing, and I talk about binary numbers in the simplified explanation just because more people are familiar with that concept.</i></p>
+    
+    <p style="font-family:monospace;color:yellow;">
+      chunk_count = size_of_file_in_hex / 3 (rounded up)
+    </p>
+    <p style="font-family:monospace;color:yellow;">
+      chunk_width = square root( (image_width * image_height) / chunk_count ) (rounded up; min = 5px, max = 63 * 3 px)
+    </p>
+    
+    <p>With this information, we can rescale the image to neatly fit a grid that has chunks of that size. This has to be done first before anything else.</p>
+    
+    
+    <h3>Step 2: Add a Validity Marker</h3>
+    <p>The program recolors the first two pixels of the image, in the upper right corner, to give a visual indication that the image has valid data in it. If an image is missing these pixels, the decoder knows that the image has no data, or that the data is corrupt, which can easily happen if the file is slightly compressed or resized.</p>
+    <p>The RGB values of both pixels are rounded to the nearest multiple of 64. Then, some specific values are added to each pixel:</p>
+    <p> First pixel:
+      <span style="color:red">+10 to Red</span> /
+      <span style="color:mediumseagreen">+1 to Green</span> /
+      <span style="color:dodgerblue">+13 to Blue</span>
+    </p>
+    <p> Second pixel:
+      <span style="color:red">+9 to Red</span> /
+      <span style="color:mediumseagreen">+11 to Green</span> /
+      <span style="color:dodgerblue">+5 to Blue</span>
+    </p>
+    <p>The decoder can read the color values of the first two pixels and check how high each one is above a multiple of 64. If the first red is 10 above a multiple of 64, and the first green is 1 above, etc. then the image must be encoded with valid data, because it's very unlikely that that would happen six times in a row by random chance.</p>
+    <p>That's how the decoder can tell you right away that something is wrong if you upload a random image with no encoded data. This step is important, so the program doesn't waste the user's time decoding an image that has meaningless pixels.</p>
+    <p>I could've chosen any RGB values for the validity marker. I just chose these particular values because 10-1-13 represents A113, which is a Pixar Easter egg ('A' is the symbol for 10 in hex), and the 9th, 11th, and 5th letters of the alphabet spell IKE. So basically, every generated image has a little digital autograph from me. Be sure to hold onto it if you would like to become super wealthy someday.</p>
+    
+    <h3>Step 3: Write the Chunk Size</h3>
+    <p>We write the chunk width in the third pixel of the image. (With that information, the decoder can know exactly how many pixels to skip over when scanning the chunks). We round the third pixel's RGB values to the nearest multiple of 64, then add the chunk width (in pixels) to the pixel's <span style="color:red">R value</span>. If the chunk width is more than 63 pixels, then we add the remainder to the <span style="color:mediumseagreen">G value</span>, and if it's more than 63*2 pixels, then we add the remainder to the <span style="color:dodgerblue">B value</span>. This means chunks can be no larger than 63*3 pixels wide (which is no problem).</p>
+    <p>Now, to know the chunk size, the decoder can just check how high each RGB value is above a multiple of 64, and sum up the results.</p>
+    
+    <h3>Step 4: Write the File Extension</h3>
+    <p>Here's a problem: files don't exactly have a standard way of telling you what type of file they are, other than the file extension in the name. For example, if you look at the raw contents of a PNG file in a hex editor, you should see that it spells "PNG" in hex right at the start, but not necessarily in the exact same place that a JPEG file spells "JPEG". And ZIP files don't spell "ZIP": the ones I checked started with "PK". Some file formats, like text files, may not give you <i>any</i> direct indicator of their format at all, and you'd have to use context clues to deduce what kind of file it is if you didn't have the file extension. In fact, there's special software designed for that very purpose in case you ever have a file with no extension (you probably won't have any trouble identifying it unless you have some very obscure file format).</p>
+    <p>Data in Colors doesn't store the full name of the file it's encoding, but we should at least store the file <i>extension</i> somewhere in the image so that the decoder can know what type of file it's decoding. We'll use the fourth and fifth pixels for that.</p>
+    <p>The RGB values are rounded to the nearest multiple of 38, and we add a number (between 0 and 37) to each RGB value, which corresponds to an index on this list of characters:</p>
+    <p style="color:yellow;font-family:monospace">?0123456789abcdefghijklmnopqrstuvwxyz_</p>
+    <p>That way, we can encode files that have extensions that are up to six characters long. If it's less than six characters long (likely), the remaining RGB values are filled with question marks (in other words, we add zero to their values). If it's more than six characters, or if it uses characters that are not on the list, the user will be told to pick a different file.</p>
+    <p>(Look, if you need to encode a JPEG2000 file, you can build your own image encoding website)</p>
+    
+    <h3>Step 5: Encode the data</h3>
+    <p>The raw data of the file is represented in hexadecimal values (a hexadecimal digit can represent any number between 0 and 15). Each chunk can store three hex digits.</p>
+    <p>For each chunk, all of the color values of the pixels in that chunk are rounded to the nearest multiple of 17. Then, a number between 0 and 15 is added to each pixel's R, G, and B values, depending on the next hexadecimal digit in the raw file.</p>
+    <p>There's almost always extra space in the image, since the final row of chunks often doesn't extend all the way to the end. For all the pixels in the extra space, the number 16 is added to their R, G, and B values. That way, if the decoder notices that a pixel's RGB values are 16 above a multiple of 17, then it knows to stop scanning.</p>
+    <p>By doing this process with multiples of 17, we guarantee that every color value is never more than 17 away from what it was in the original image, which ensures that the final result still closely resembles the image that we started with.</p>
+    
+    <h3>Step 6: Decorate</h3>
+    <p>In fact, this process actually works a little too well, and so far, the image won't look like it's changed very much:</p>
+    <img src="images/DICNoVariation.png" alt="Starry Night, where seemingly very little has changed" class="di">
+    <p>Can you see the square chunks? They cover almost the entire image. Try looking at the bottom of the black tree.</p>
+    <p>To make it clear what's happened to the image, we should make the squares stand out more. So the final step is to add or subtract multiples of 17 to the color values in each chunk, because this actually won't have any effect on the data we've encoded.</p>
+    <p>I created an algorithm to randomly add and subtract values in a particular way that I thought looked visually appealing. That's why, if you input the same image and file into Data in Colors more than once, you'll get a different-looking result every time: because it's randomized.</p>
+    <img src="images/vanGogh.png" alt="Starry Night, overlayed with a grid of colorful squares" class="di">
+    <p>This is kind of dishonest, because it makes it look like the <i>data</i> is the reason that the squares are so vibrant, when in reality we've just added some random variation. But the color of the chunks <i>do</i> still encode the file data, and the decoder really <i>does</i> scan the image to decode the hidden file, which is the most important thing. This is just some extra decoration to make it clear. Again, I won't tell anyone if you don't.</p>
+    
+  </body>
+</html>

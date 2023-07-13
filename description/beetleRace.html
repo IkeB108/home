@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ikebot</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="../style.css" />
+  <link rel="icon" href="../favicon.png">
+</head>
+  <body style="background-color:black" class="descriptionBody">
+    
+    <div id="ikebotLogoContainer">
+      <a id="ikebotLogoContainerAnchor" href="../">
+        <image src="../profile255px.png" id="ikebotLogoImage" alt="A black square-shaped head of a cartoon robot with yellow circular eyes"></image>
+      </a>
+    </div>
+    <a href="../">
+      <h1 id="ikebotTitle">Ikebot</h1>
+    </a>
+    
+    <!--
+    Instructions:
+      Use Emmet (built into VS Code) to speed up the process
+      Use h2, h3, and p.
+      For images, use class "di" and remember to add alt text
+      For buttons, use class "db" with anchors or buttons
+      For YouTube embeds, copy the embed from the video and DELETE
+        the width and height properties it auto-generates.
+      
+    -->
+    
+    
+    <img src="../thumbnails/beetleRace.png" alt="The title screen for Beetle Race, featuring the playable characters in pixel art." class="di">
+    <a href="https://ikeb108.github.io/hosting/beetleRace/" class="db">Play Beetle Race (PC only)</a>
+    <noscript>
+      <p class="warning">⚠️ This game requires Javascript to run, which appears to be disabled in your browser.</p>
+    </noscript>
+    <h2>Beetle Race</h2>
+    <p style="color:rgb(167, 167, 167);"><i>November 2019</i></p>
+    <p>Beetle Race is a platformer where you navigate an underground maze collecting candy corn, as you switch between playing one of four different beetles that have different abilities.</p>
+    <h2>Inspiration</h2>
+    <h3>Speedrunning</h3>
+    <p>I wanted to make a game that would be fun to speedrun (to try to complete from start to finish as fast as possible), so I wanted to give the player a lot of options for ways to complete the game. I made a nonlinear map with rooms that you can navigate in any order, as any playable character, and your only goal is to collect 300 pieces of candy corn. At the end, your final time is scored with a bronze, silver, gold, or platinum trophy. Strategizing the fastest route is called "routing" in speedrun communities, and in my opinion, it's one of the most fun things about speedrunning.</p>
+    <p>A diagram of a speedrunning route for the game Hollow Knight:</p>
+    <img src="https://external-preview.redd.it/UbJwzsWXnsWg7RnZhHp_Ve8CBQjWel6k9nu99hrouTo.jpg?auto=webp&s=36675f9a6b6f3146b1895ef9b164f770c8a8c128" class="di" alt="A diagram of the world of Hollow Knight, with lines drawn on it that trace speedrunning paths and written annotations">
+    <p>Speedrunners often use a strategy called "death abusing", where they die in the game on purpose, often to reset their position or to undo the effects of some sort of glitch they caused. So in Beetle Race, there is no lives system. Instead, if you die by falling in poison, you'll respawn at the top of the room you're in, so there's lots of opportunities for death abuse (sometimes, you might even have to use it). This also made it simpler for me to design and code the game.</p>
+    <h3>Swappable Characters</h3>
+    <p>The idea to make swappable playable characters with different abilities might have been inspired by Little Big Planet 3, which has four playable characters with different styles of movement. Sackboy can climb, Swoop can fly, Oddsock can run and wall-jump, and Toggle can change size. I probably took inspiration from other games too. </p>
+    <img src="https://i.ytimg.com/vi/ymCDdrMKPrY/maxresdefault.jpg" class="di" alt="The four playable characters in Little Big Planet 3">
+    <h2>Flaws</h2>
+    <p><i>No game engine</i></p>
+    <p>This game was not made with a game engine. Instead, it was made with the P5JS Javascript library, which is designed for creative coding, and is sometimes used to make simple games. A game made this way might not work properly depending on your web browser (Chrome is recommended). Without a game engine, I also had to program things like player collision and movement from scratch, and I had no level editor, so I had to program my own level editor into the game.</p>
+    <p>If you open up your browser's developer console (press F12 in Chrome) and type the command <span style="font-family:monospace;color:yellow;">devMode = true</span> (case-sensitive), you can use my level editor yourself. You can click on the screen to place walls and press 'F' to swap between different kinds of beetles, including a "Developer Beetle" that allows you to clip through walls and explore outside of the playable area (where you might find some unfinished rooms).</p>
+    <p>But that feature was never intended for players, so there isn't a simple or convenient way to save or load the levels you build.</p>
+    <p><i>Poor level design</i></p>
+    <p>Before making this game, I had no experience with level design, and you might be able to tell. A lot of rooms feel awkward and frustrating to navigate, no matter what beetle you play as.</p>
+    <p><i>Poorly optimized</i></p>
+    <p>The rooms are built out of a grid of square tiles, which means that when the player moves, the game has to calculate whether the player is colliding with any of those tiles. If there are too many  tiles to calculate, it will slow down the game. That's why the map is divided into rooms: so the code doesn't have to worry about checking tiles that aren't in the current room.</p>
+    <p>A smarter solution would be to manually or automatically group tiles together into larger collision boxes, so that overall, there are fewer boxes to check:</p>
+    <img src="images/beetleRaceBoxified.png" alt="A room in Beetle Race where tiles are grouped into boxes outlined in red" class="di">
+    <p>I don't know if there's a proper term for this. I just call it "boxifying", and I did ultimately use it in a later game prototype.</p>
+    <p>Beetle Race also wastes energy checking for collision with tiles that the player could never collide with. I was aware of this when I made the game, but I decided at the time that it wasn't worth fixing. Instead, I tried to build levels that used few enough wall tiles that it didn't affect performance.</p>
+    <img src="images/beetleRaceInacc.png" alt="A room in Beetle Race. Tiles that are unreachable by the player are highlighted" class="di">
+    <h2>On a positive note</h2>
+    <p>The two things I'm probably the most proud of in this game are the particle effects with the ground (which are unique to every beetle) and the sound effects (made with a tool called bfxr).</p>
+  </body>
+</html>
