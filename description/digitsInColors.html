@@ -40,7 +40,7 @@
     </noscript>
     <h2>Digits In Colors</h2>
     <p style="color:rgb(167, 167, 167);"><i>November 2022</i></p>
-    <p>Digits In Colors visualizes any number you input by breaking it down into its prime factors. This is called <b>prime decomposition</b>. Below, you can see an example of how a number is turned into a shape, with 45 as an example.</p>    
+    <p>Digits In Colors visualizes any number you input by breaking it down into its prime factors. This is called <b>prime decomposition</b>. Below, you can see an example of how 45 is turned into a branching tree of shapes.</p>    
     <img src="images/digitsInColorsExplain.png" alt="The number 45 shown as the product of a pentagon times a triangle times a triangle, resulting in a recursive shape." class="di">
     <a href="https://ikeb108.github.io/hosting/hallberg/digitsInColorsExplain_nonVerbal/" class="db">Visit Interactive Explainer</a>
     <noscript>
@@ -50,17 +50,20 @@
     <p>This video explains the program's features, including the ability to reorder the hierarchy of the factors.</p>
     <iframe src="https://www.youtube.com/embed/XH9-f3pKiBE" title="Digits In Colors: See Inside the Mind of a Child Prodigy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     <h2>Inspiration</h2>
-    <p>This method of visualizing shapes is the brainchild of Jacob Barnett, who is a former child prodigy. To my knowledge, he didn't consciously come up with the idea: instead, this is the way he just intuitively, subconsciously visualizes numbers.</p>
-    <p>I first heard about this concept years prior in a video from Numberphile, and I noticed there were no available resources that could automatically generate these number diagrams so that we could see numbers through Jacob's eyes.</p>
+    <p>This method of visualizing shapes comes from the imagination of Jacob Barnett, who is a former child prodigy. To my knowledge, he didn't consciously come up with the idea. Instead, this is just the way he intuitively thinks about numbers.</p>
+    <p>I first heard about Jacob years prior in a video from Numberphile, and I noticed that no one had yet made a tool that could automatically generate Jacob's number diagrams, like the one shown in the video.</p>
     <iframe src="https://www.youtube.com/embed/hP-DZMmQBng" title="Imagining Numbers as Shapes - Numberphile" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     <h2>Inaccuracies</h2>
-    <p>If you watch the Numberphile video, you may notice that Jacob's method of visualizing 2 as a factor is different from how it works in my program. Unlike other prime factors, Jacob doesn't use a two-pointed shape (also known as a line) to represent 2. Instead, he duplicates the entire shape and overlays it on top of itself, rotated 180 degrees.</p>
-    <p>I didn't want my program to work this way because, while it looks nice for the number 54, with other numbers it could make the diagram very messy very quickly. Using lines for factors of 2 also keeps the rules consistent so the concept doesn't get overly confusing.</p>
-    <p>To be fair, Jacob didn't consciously invent this system (to my knowledge), so it's not like he decided to make the rules inconsistent. I've yet to see Jacob himself diagram any number other than 54, so maybe there are other quirks to his system that we don't know about.</p>
-    <p>Maybe Jacob has some special form of synesthesia, which causes him to imagine shapes this way: synesthesia is known for having strange and inconsistent rules.</p>
-    <p>I have synesthesia, and it comes in many forms, but my particular form is called grapheme-color synesthesia, which means that in my brain, every letter and number evokes a specific color that just feels like it naturally belongs with that symbol.</p>
+    <p>You may notice that the number 54 looks different in my program from the way Jacob draws it. This is because, for numbers with a factor of 2, Jacob doesn't use a two-pointed shape (also known as a line); instead, he duplicates the entire shape and overlays it on top of itself, rotated 180 degrees.</p>
+    <p>I didn't want my program to work this way because, while it looks nice for the number 54, with other numbers it could quickly make the diagram pretty messy. Using lines for factors of 2 also keeps the rules consistent, so the concept doesn't get overly confusing.</p>
+    <p>That being said, if you want my program to behave Jacob's way, you can do this by rearranging 2 to be at the top of the hierarchy of factors, and shrinking its size to the smallest amount.</p>
+    <img src="images/54.png" alt="A before and after comparison of the way Digits In Colors represents 54 by default, with Jacob's version, which can be created by changing the settings shown" class="di">
+    <p>To be fair, Jacob didn't consciously invent this system (to my knowledge), so it's not like he decided to make the rules inconsistent. And I haven't seen Jacob himself diagram numbers other than 54, so maybe there are other quirks to his system that we don't know about.</p>
+    <p>Maybe Jacob has some special form of synesthesia, which causes him to imagine shapes this way: synesthesia often plays by inconsistent rules.</p>
+    <p>I have synesthesia, and it comes in many forms, but my particular form (the most popular one) is called grapheme-color synesthesia, which means that my brain attributes every letter and number to the experience of a certain color.</p>
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Synesthesia.svg/1200px-Synesthesia.svg.png" alt="The word synesthesia, and the digits 0-9, where every unique letter and number is colored differently." class="di">
-    <p>I didn't choose the color scheme that I have, and I couldn't logically explain it, but I can say that it feels wrong to pair any letter with any color other than the one that it corresponds to in my mind. This diagram shows the results of a survey of 6,588 grapheme-color synesthetes, so you can see what colors are most popular for which letters:</p>
+    <p>My synesthesia follows inconsistent rules too: for example, I imagine vowels' colors changing depending on what sound they make, and the colors of some letters are often influenced by the colors of other letters in the same word.</p>
+    <p>If you have synesthesia, you don't choose your color scheme. It's involuntary, but there are some common patterns. This diagram shows the results of a survey of 6,588 grapheme-color synesthetes. You can see that A, O, and Y are very often attributed to red, white, and yellow respectively.</p>
     <img src="https://www.researchgate.net/profile/David-Eagleman/publication/273150268/figure/fig3/AS:340448523636744@1458180661994/Grapheme-Color-synesthesia-in-6588-participants-The-letter-color-pairings-across-the.png" alt="A grid, showing column-by-column what colors each synesthete has selected for each letter. Patterns emerge, such as I usually being white and Y usually being yellow" class="di">
     <h2>Hallberg Award</h2>
     <p>This was one of the projects I made for the Hallberg award at Sierra College, which is an art scholarship that is awarded to four faculty-selected students. Recipients are given the opportunity to showcase their artwork at Sierra College's Ridley art gallery. Here's my work being displayed on some monitors:</p>
