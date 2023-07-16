@@ -47,9 +47,6 @@
     <h3>Difficulty</h3>
     <p>Because of my bad design choices, building a game with Ascii Mason was complicated, unintuitive, and difficult.</p>
     <p>I wanted AsciiMason to be usable with no coding knowledge. But since I didn't have enough time and skills to do that in the summer of 2020, I eventually decided to just give users a textbox that would automatically fill with pre-made Javascript code, depending on what they needed. This code would have placeholder names like <span style="font-family:courier;color:yellow">"title_here"</span> for the user to fill in. This was a terrible solution, and just about any other system probably would have been better.</p>
-    <h3>Fatal flaw</h3>
-    <p>By allowing users to enter any Javascript code they wanted into the textbox, Ascii Mason would've been a big security risk. Malicious users could have built and shared games that contained harmful Javascript code, and unsuspecting players who downloaded and played those games would suddenly find that my website, which is <i>executing</i> the Javascript code, was attacking their computer (even though I didn't write the malicious code myself). It hardly could have been designed worse.</p>
-    <p>To be clear, the demo above is a game <i>made with</i> Ascii Mason, not Ascii Mason itself, so there is no security risk.</p>
     <h2>Redoing everything</h2>
     <p>This project can't be fixed, but I think some of the general ideas could be turned into a simple and intuitive game-building tool. For one thing, I didn't need to design a whole system for making dialogue trees, or a system for drawing maps with text art, because those things already exist:</p>
     <ul>
