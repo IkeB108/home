@@ -45,9 +45,9 @@
     <a href="https://ikeb108.github.io/hosting/dataInColors/" class="db">Visit Data In Colors</a>
     <p style="color:rgb(167, 167, 167);"><i>Note: if you want to share an encoded image with others, I <b>don't</b> recommend sending the image over SMS, or social media apps like Instagram or Reddit. This could compress or resize the file by a small amount, which would corrupt the encoded data. You could instead send the file as an email attachment, or use something like Google Drive.</i></p>
     <h2>How It Works</h2>
-    <p>This video gives a simplified explanation of the program. If you're interested in reading a complete, 100% accurate explanation, there's one further down the page.</p>
+    <p>This video explains the basic idea of the program.</p>
     <iframe src="https://www.youtube.com/embed/bSvOVSmctTw" title="This photo has secret music hidden inside" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    <p>Note: The program itself also includes an explanatory animation that is slightly inaccurate for the sake of simplicity.</p>
+    <p>Note: This video, and the program itself, use a slightly inaccurate explanation for the sake of simplicity. A detailed technical description is further down the page.</p>
     <h2>Inspiration</h2>
     <p>This is the video that mainly inspired Data In Colors: Can you fit a whole game into a QR code?</p>
     <iframe src="https://www.youtube.com/embed/ExwqNreocpg" title="Can you fit a whole game into a QR code?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -88,10 +88,10 @@
     <br><br><br>
     <img src="images/dataInColorsCode.png" alt="Some code used to make Data In Colors" class="di">
     
-    <h2>How It Works: A More Detailed Explanation</h2>
-    <p>Here's a more accurate and detailed description of how Data In Colors <i>encodes</i> an image with file data (how it creates the colored squares):</p>
+    <h2>How It Works: A Technical Explanation</h2>
+    <p>Here's an accurate and detailed description of how Data In Colors <i>encodes</i> an image with file data (how it creates the colored squares):</p>
     
-    <p style="color:lightgrey"><i>Note: the program actually reads the raw contents of the file as hexadecimal digits (hex values), not binary digits. It's just a different way of representing the same thing.</i></p>
+    <p style="color:lightgrey"><i>Note: the program actually reads the raw contents of the input file as hexadecimal digits (hex values), not binary digits. It's just a different way of representing the same thing.</i></p>
     
     <h3>Step 1: Resize the Image</h3>
     <p>The image is going to be covered in a grid of colored squares that I just call chunks. To know how wide the chunks should be (in pixels), we need to know how many chunks will be necessary to encode the file, which we can calculate based on how many hex digits are in the data of the file we want to encode.</p>
