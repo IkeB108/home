@@ -8,15 +8,27 @@
   <link rel="stylesheet" type="text/css" href="style.css" />
   <link rel="icon" href="favicon.png">
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
+  
+  
+  <script>
+    function onBuildLoad() {
+      //Create event listeners for double click on portrait
+      let goToMisc = function() { window.location.href = "miscLinks.html" }
+      $("#ikebotLogoContainer")[0].addEventListener("dblclick", goToMisc)
+    }
+  </script>
+  
   <script src="script.js"></script>
+  
 </head>
 <body style="background-color:black" onload="onLoad()">
+  
   <div id="ikebotLogoContainer">
     <img src="profile255px.png" id="ikebotLogoImage" alt="A black square-shaped head of a cartoon robot with yellow circular eyes"></img>
   </div>
   <h1 id="ikebotTitle">Ikebot</h1>
   
-  <p id="makePageWarning">This version of the homepage is intended for development purposes only.</p>
+  <p class="warning" id="makePageWarning">This version of the homepage is intended for development purposes only.</p>
   
   <p class="center" id="ikebotDescriptionText">I develop interactive web apps, web games, and videos that explore creative ideas like visualizing numbers as intricate recursive shapes, turning binary data into colorful mosaics, or puppeteering digital cartoon characters.</p>
   <div class="center" id="navMenu">
@@ -84,6 +96,7 @@
   <h2>About Me</h2>
   <div id="aboutMe">
     <img id="ikeBischofImage" src="ikeBischof.png" alt="Ike Bischof wearing an Ikebot costume: a black shirt with yellow sleeves and yellow buttons."></img>
+    
     <div id="aboutMeTextContainer">
       <p style="font-weight:bold; margin-top:0px;">Ike Bischof</p>
       <p style="text-align:justify">I code with Javascript to make web apps and web games that explore a variety of creative ideas involving math, computer science, game design, and other topics. These projects are an opportunity to learn and discuss concepts like information theory, music theory, or game development, which I do here and on my YouTube channel, Ikebot.</p>
@@ -94,6 +107,10 @@
     </div>
     
   </div>
+  
+  <br>
+  
+  <img id="ikeBischofImageNarrowScreen" src="ikeBischof.png" alt="Ike Bischof wearing an Ikebot costume: a black shirt with yellow sleeves and yellow buttons." style="width:100%"></img>
   
 </body>
 </html>

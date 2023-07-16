@@ -3,11 +3,9 @@
     "name":"dataInColors",
     "title":"Data In Colors",
     "icons":"youtube interact",
-    "shortDescription":"Turn anything, such as music or documents, into a mosaic of colors similar to a QR code, by encoding the raw binary as a sequence of colorful squares.",
-    "longDescription":"",
+    "shortDescription":"Turn anything, such as music or documents, into a mosaic of colors similar to a QR code.",
     "thumbnail":"dataInColors.png",
-    "thumbnailAlt":"A photo of a playground overlayed with a grid of colorful squares. The photo is circular, in the shape of a vinyl record.",
-    "link":"https://ikeb108.github.io/goTo/?dataInColors",
+    "thumbnailAlt":"A playground overlayed with a grid of colorful squares. The photo is shaped like a vinyl record.",
     "date":"Nov 2022"
   },
   {
@@ -15,10 +13,8 @@
     "title":"Digits In Colors",
     "icons":"youtube interact",
     "shortDescription":"Visualize numbers as geometric shapes by breaking them down into their prime factors.",
-    "longDescription":"",
     "thumbnail":"digitsInColors.png",
     "thumbnailAlt":"A colorful collection of shapes organized in a branching formation to represent the number 108.",
-    "link":"https://ikeb108.github.io/goTo/?digitsInColors",
     "date":"Nov 2022"
   },
   {
@@ -26,21 +22,99 @@
     "title":"Doodle Theater",
     "icons":"interact",
     "shortDescription":"Puppeteer two-dimensional digital puppets using the mouse and keyboard with up to two other people.",
-    "longDescription":"",
     "thumbnail":"doodleTheater.png",
     "thumbnailAlt":"A doodle of a chicken, a unicorn, a hedgehog, and a pig.",
-    "link":"https://ikeb108.github.io/goTo/?doodleTheater",
     "date":"Dec 2021"
+  },
+  {
+    "name":"musicCalculator",
+    "title":"Musical Combinations Calculator",
+    "icons":"interact",
+    "shortDescription":"Calculate how many possible songs could be written in one measure of music, given the parameters you set.",
+    "thumbnail":"musicCalculator.png",
+    "thumbnailAlt":"A random assortment of music notation symbols",
+    "date":"Mar 2020"
+  },
+  {
+    "name":"crackerMultiplication",
+    "title":"Cracker Multiplication",
+    "icons":"interact",
+    "shortDescription":"Visualize how long multiplication works by snapping a virtual cracker.",
+    "thumbnail":"crackerMultiplication.png",
+    "thumbnailAlt":"A segmented rectangular cracker, where the widths and lengths of the segments are measured",
+    "date":"May 2022"
+  },
+  {
+    "name":"asciiMason",
+    "title":"Ascii Mason",
+    "icons":"game",
+    "shortDescription":"A demo for an RPG creation tool that I made, but ultimately did not complete.",
+    "thumbnail":"asciiMason.png",
+    "thumbnailAlt":"Minimalist pixel art of a bird by a river and some trees",
+    "date":"Aug 2020"
   },
   {
     "name":"beetleRace",
     "title":"Beetle Race",
     "icons":"game",
-    "shortDescription":"Swap back and forth between four playable characters as you navigate an underground maze to collect candy corn as fast as possible.",
-    "longDescription":"",
+    "shortDescription":"A platformer made for speedrunning, where you can change your movement abilities.",
     "thumbnail":"beetleRace.png",
     "thumbnailAlt":"The title screen for Beetle Race, featuring the playable characters in pixel art.",
-    "link":"https://ikeb108.github.io/goTo/?beetleRace",
     "date":"Nov 2019"
+  },
+  {
+    "name":"frodo",
+    "title":"Frodo Has a Flamethrower",
+    "icons":"game youtube",
+    "shortDescription":"Save Middle Earth in style.",
+    "thumbnail":"frodo.png",
+    "thumbnailAlt":"A cartoonish drawing of Frodo holding a flamethrower next to Samwise",
+    "date":"Aug 2022"
+  },
+  {
+    "name":"wifiPassword",
+    "title":"Wifi Password Simulator",
+    "icons":"game youtube",
+    "shortDescription":"Try to find the WiFi password on a college campus.",
+    "thumbnail":"wifiPassword.png",
+    "thumbnailAlt":"A student in the game standing in the Student Resource Center",
+    "date":"Aug 2022"
+  },
+  {
+    "name":"xkcdAdventure",
+    "title":"An XKCD Adventure",
+    "icons":"game",
+    "shortDescription":"Explore a small map full of references to the XKCD webcomic.",
+    "thumbnail":"xkcdAdventure.png",
+    "thumbnailAlt":"Two stick figures near a graveyard",
+    "date":"July 2022"
+  },
+  {
+    "name":"sheepCounter",
+    "title":"Sheep Counter",
+    "icons":"interact",
+    "shortDescription":"It's the 21st century. Why should YOU have to count the sheep?",
+    "thumbnail":"sheepCounter.png",
+    "thumbnailAlt":"A sheep hopping over a log",
+    "date":"Dec 2021"
+  },
+  {
+    "name":"snowflakeSky",
+    "title":"Procedurally Generated Snowflakes",
+    "icons":"interact",
+    "shortDescription":"Watch them fall from the sky.",
+    "thumbnail":"snowflakeSky.png",
+    "thumbnailAlt":"White procedurally generated snowflakes against a black background",
+    "date":"Dec 2017"
+  },
+  {
+    "name":"javascriptLibraries",
+    "title":"Javascript Libraries",
+    "icons":"interact",
+    "shortDescription":"I've made some Javascript libraries for you to use in your own web projects, particularly if you use P5JS.",
+    "thumbnail":"javascriptLibraries.png",
+    "thumbnailAlt":"Code icon",
+    "date":"Summer of 2022"
   }
+  
 ]

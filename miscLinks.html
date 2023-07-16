@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ikebot</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="icon" href="favicon.png">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
+  
+  <script>
+    let repos = []
+    
+    fetch("https://api.github.com/users/ikeb108/repos")
+      .then((response) => response.json())
+      .then(getRepos)
+    
+    function getRepos(j){
+      repos = j
+      for(let i in repos){
+        let r = repos[i].name
+        let li = $(`<li><a href="https://ikeb108.github.io/${r}" class="yl">${r}</a></li>`)
+        $("#apiUL").append(li)
+      }
+    }
+    
+    let inHosting = []
+    fetch("https://api.github.com/repos/ikeb108/hosting/contents/")
+      .then((response => response.json()))
+      .then(getInHosting)
+    
+    function getInHosting(j){
+      for(let p in j){
+        if( !j[p].name.includes(".") ){
+          inHosting.push( j[p].name )
+        }
+      }
+      
+      for(let p in inHosting){
+        let n = inHosting[p]
+        let li = $(`<li><a href="https://ikeb108.github.io/hosting/${n}" class="yl">hosting/${n}</a></li>`)
+        $("#apiUL").append(li)
+      }
+    }
+    
+    let protos = []
+    fetch("https://api.github.com/repositories/655467673/contents/00_prototypesAndTesting")
+      .then((response => response.json()))
+      .then(getProtos)
+    
+    function getProtos(j){
+      for(let p in j){
+        if( !j[p].name.includes(".") ){
+          protos.push( j[p].name )
+        }
+      }
+      for(let p in protos){
+        let n = protos[p]
+        let li = $(`<li><a href="https://ikeb108.github.io/hosting/00_prototypesAndTesting/${n}" class="yl">hosting/00_prototypesAndTesting/${n}</a></li>`)
+        $("#apiUL").append(li)
+      }
+    }
+      
+  </script>
+  
+</head>
+<body style="background-color:black" class="descriptionBody">
+  <div id="ikebotLogoContainer">
+    <a id="ikebotLogoContainerAnchor" href="../">
+      <image src="../profile255px.png" id="ikebotLogoImage" alt="A black square-shaped head of a cartoon robot with yellow circular eyes"></image>
+    </a>
+  </div>
+  <a href="../">
+    <h1 id="ikebotTitle">Ikebot</h1>
+  </a>
+  
+  <h2>Miscellaneous Links</h2>
+  <p>This secret page is for getting easier access to miscellaneous projects and other links that aren't meant to be on the main page.</p>
+  
+  <!-- Emmet: Use li>a.yl -->
+  <ul style="line-height:3rem;">
+    
+    <li><a href="https://ikeb108.github.io/hosting/00_prototypesAndTesting/youtubeVideoDataCollector" class="yl">YouTube Video Data Collector</a></li>
+    
+    <li><a href="https://openprocessing.org/user/88796?o=7&view=sketches" class="yl">Mike B Open Processing</a></li>
+  
+    <li><a href="https://ikeb108.github.io/phils104helper" class="yl">Phil 104 Helper</a></li>
+    
+    <li><a href="https://ikeb108.github.io/hosting/00_prototypesAndTesting/triggerSoundPlayer/" class="yl">Misophonia Trigger Sound Player</a></li>
+    
+    <li><a href="https://ikeb108.github.io/hosting/00_prototypesAndTesting/campfire" class="yl">Campfire</a></li>
+    
+  </ul>
+  
+  <p>Repo dump from the Github API:</p>
+  
+  <ul style="line-height:3rem" id="apiUL">
+    
+  </ul>
+  
+</body>
+</html>

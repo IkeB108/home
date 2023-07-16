@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ikebot</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="../style.css" />
+  <link rel="icon" href="../favicon.png">
+</head>
+  <body style="background-color:black" class="descriptionBody">
+    
+    <div id="ikebotLogoContainer">
+      <a id="ikebotLogoContainerAnchor" href="../">
+        <image src="../profile255px.png" id="ikebotLogoImage" alt="A black square-shaped head of a cartoon robot with yellow circular eyes"></image>
+      </a>
+    </div>
+    <a href="../">
+      <h1 id="ikebotTitle">Ikebot</h1>
+    </a>
+    
+    <!--
+    Instructions:
+      Use Emmet (built into VS Code) to speed up the process
+      Use h2, h3, and p.
+      For images, use class "di" and remember to add alt text
+        img.di[alt] <== Emmet
+      For buttons, use class "db" with anchors or buttons
+        a.db
+        button.db
+      For YouTube embeds, copy the embed from the video and DELETE
+        the width and height properties it auto-generates.
+      
+    -->
+    <img src="../thumbnails/crackerMultiplication.png" alt="A segmented rectangular cracker, where the widths and lengths of the segments are measured" class="di">
+    <a href="https://ikeb108.github.io/hosting/crackerMultiplication/" class="db">Visit Cracker Multiplication</a>
+    <p style="color:lightgrey"><i>Note: You can click and drag the numbers up and down to change what you're multiplying.</i></p>
+    <noscript>
+      <p class="warning">⚠️ This project requires Javascript to run, which appears to be disabled in your browser.</p>
+    </noscript>
+    <h2>Cracker Multiplication</h2>
+    <p style="color:rgb(167, 167, 167);"><i>May 2022</i></p>
+    <p>Cracker Multiplication is a program that visualizes long multiplication using the holes in a cracker. It splits the width and height of the cracker by the ones and tens place.</p>
+    <p>For example, in the above graphic, 12 * 15 is split into (10 + 2) * (10 + 5)</p>
+    <p>This shows how the standard Western method of doing long multiplication works: it's just a way to break down the problem (like 12 * 15) into smaller problems (like 10 * 10, 10 * 2, 10 * 5, and 2 * 5) that you can solve if you know your times tables, and summing up the results.</p>
+    <h2>Inspiration</h2>
+    <p>When I learned long multiplication in school, I was taught how to do it, but I didn't understand why the method works the way it does. I thought it was confusing, and for years, I kept forgetting how to do it, because I didn't understand it.</p>
+    <p>Some cultures teach other ways to do long multiplication, like this one from Japan. It might look a little bit confusing at first, but it's actually very straightforward:</p>
+    <img src="https://whizz.com/wp-content/uploads/2022/10/JAPAN-4-768x780-1.png" alt="Colorful intersecting lines that represent the product of 12 and 32" class="di" style="background-color: white;">
+    <a href="https://whizz.com/en-us/blog/its-not-magic-its-math-how-the-japanese-multiplication-method-works/" class="db">Read about the Japanese method</a>
+    <p>It even works for numbers with more than two digits:</p>
+    <img src="https://files.heftycdn.com/wp-content/uploads/2018/06/a62bcac82afa046f464417878440ba5a-800x450.jpg" alt="Interseccting lines that represent the product of 123 and 321" class="di">
+    <a href="https://www.cleverly.me/japanese-trick/" class="db">Read about multiplying 3 digit numbers</a>
+    
+    <p>Maybe the Japanese method gives students a better understanding of the way that long multiplication breaks down a problem by digit places.</p>
+  </body>
+</html>
