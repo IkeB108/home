@@ -10,56 +10,98 @@
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
   
   <script>
-    let repos = []
-    
-    fetch("https://api.github.com/users/ikeb108/repos")
-      .then((response) => response.json())
-      .then(getRepos)
-    
-    function getRepos(j){
-      repos = j
-      for(let i in repos){
-        let r = repos[i].name
-        let li = $(`<li><a href="https://ikeb108.github.io/${r}" class="yl">${r}</a></li>`)
-        $("#apiUL").append(li)
+    //See if API data is in localStorage
+    //(to prevent using the API too often)
+    apiDump = window.localStorage.getItem("apiDump")
+    if(apiDump === null){
+      apiDump = getApiDump() //Returns a div made with jquery
+    } else {
+      //If last api dump has expired (24 hours), then delete it
+      //from local storage and refresh the page
+      if( window.localStorage.getItem("apiDumpExpiration") >= Date.now() ){
+        refreshRepoDump();
       }
+      
+      console.log("Previous API data found.")
+      apiDump = $(`<div>${apiDump}</div>`)
+      
     }
     
-    let inHosting = []
-    fetch("https://api.github.com/repos/ikeb108/hosting/contents/")
-      .then((response => response.json()))
-      .then(getInHosting)
+    //Wait a few seconds before setting localStorage and adding to page
+    //(This is very incorrect but I'm tired)
+    setTimeout(()=>{
+      window.localStorage.setItem("apiDump", apiDump.html() )
+      //Set expiration date for 24 hours
+      window.localStorage.setItem("apiDumpExpiration", Date.now() + (1000 * 60 * 60 * 24) )
+      
+      $("#apiUL").append(apiDump) //Add the div directly
+      $("#pleaseWaitRepoDump").remove()
+    }, 3000)
     
-    function getInHosting(j){
-      for(let p in j){
-        if( !j[p].name.includes(".") ){
-          inHosting.push( j[p].name )
+    
+    //Generate new elements using the repo info from the Github API
+    function getApiDump(){
+      
+      let repoDumpDiv = $("<div></div>")
+      
+      let repos = []
+      
+      fetch("https://api.github.com/users/ikeb108/repos")
+        .then((response) => response.json())
+        .then(getRepos)
+      
+      function getRepos(j){
+        repos = j
+        for(let i in repos){
+          let r = repos[i].name
+          let li = $(`<li><a href="https://ikeb108.github.io/${r}" class="yl">${r}</a></li>`)
+          repoDumpDiv.append(li)
         }
       }
       
-      for(let p in inHosting){
-        let n = inHosting[p]
-        let li = $(`<li><a href="https://ikeb108.github.io/hosting/${n}" class="yl">hosting/${n}</a></li>`)
-        $("#apiUL").append(li)
-      }
-    }
-    
-    let protos = []
-    fetch("https://api.github.com/repositories/655467673/contents/00_prototypesAndTesting")
-      .then((response => response.json()))
-      .then(getProtos)
-    
-    function getProtos(j){
-      for(let p in j){
-        if( !j[p].name.includes(".") ){
-          protos.push( j[p].name )
+      let inHosting = []
+      fetch("https://api.github.com/repos/ikeb108/hosting/contents/")
+        .then((response => response.json()))
+        .then(getInHosting)
+      
+      function getInHosting(j){
+        for(let p in j){
+          if( !j[p].name.includes(".") ){
+            inHosting.push( j[p].name )
+          }
+        }
+        
+        for(let p in inHosting){
+          let n = inHosting[p]
+          let li = $(`<li><a href="https://ikeb108.github.io/hosting/${n}" class="yl">hosting/${n}</a></li>`)
+          repoDumpDiv.append(li)
         }
       }
-      for(let p in protos){
-        let n = protos[p]
-        let li = $(`<li><a href="https://ikeb108.github.io/hosting/00_prototypesAndTesting/${n}" class="yl">hosting/00_prototypesAndTesting/${n}</a></li>`)
-        $("#apiUL").append(li)
+      
+      let protos = []
+      fetch("https://api.github.com/repositories/655467673/contents/00_prototypesAndTesting")
+        .then((response => response.json()))
+        .then(getProtos)
+      
+      function getProtos(j){
+        for(let p in j){
+          if( !j[p].name.includes(".") ){
+            protos.push( j[p].name )
+          }
+        }
+        for(let p in protos){
+          let n = protos[p]
+          let li = $(`<li><a href="https://ikeb108.github.io/hosting/00_prototypesAndTesting/${n}" class="yl">hosting/00_prototypesAndTesting/${n}</a></li>`)
+          repoDumpDiv.append(li)
+        }
       }
+      
+      return repoDumpDiv
+    }
+    
+    function refreshRepoDump(){
+      window.localStorage.removeItem("apiDump")
+      window.location.reload()
     }
       
   </script>
@@ -95,8 +137,10 @@
   
   <p>Repo dump from the Github API:</p>
   
+  <button class="db" onclick="refreshRepoDump()">Refresh repo dump</button>
+  
   <ul style="line-height:3rem" id="apiUL">
-    
+    <li id="pleaseWaitRepoDump">Please wait...</li>
   </ul>
   
 </body>

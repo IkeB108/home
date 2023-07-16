@@ -40,7 +40,24 @@
     </noscript>
     <h2>Ascii Mason</h2>
     <p style="color:rgb(167, 167, 167);"><i>August 2020</i></p>
-    <p>More information coming soon</p>
-    
+    <p>Ascii Mason was my attempt to make a webtool for building role-playing games. I've never used RPG Maker, but it likely would have been similar to that. The goal was to make it simple and easy for users to make basic adventure games that featured dialogue trees and expansive maps made of text art.</p>
+    <p>Users would be able to download their game as a text file (a json file) and share it with others online simply by sharing the text file.</p>
+    <p>This project failed for several reasons.</p>
+    <h2>Flaws</h2>
+    <h3>Difficulty</h3>
+    <p>Because of my bad design choices, building a game with Ascii Mason was complicated, unintuitive, and difficult.</p>
+    <p>I wanted AsciiMason to be usable with no coding knowledge. But since I didn't have enough time and skills to do that in the summer of 2020, I eventually decided to just give users a textbox that would automatically fill with pre-made Javascript code, depending on what they needed. This code would have placeholder names like <span style="font-family:courier;color:yellow">"title_here"</span> for the user to fill in. This was a terrible solution, and just about any other system probably would have been better.</p>
+    <h3>Fatal flaw</h3>
+    <p>By allowing users to enter any Javascript code they wanted into the textbox, Ascii Mason would've been a big security risk. Malicious users could have built and shared games that contained harmful Javascript code, and unsuspecting players who downloaded and played those games would suddenly find that my website, which is <i>executing</i> the Javascript code, was attacking their computer (even though I didn't write the malicious code myself). It hardly could have been designed worse.</p>
+    <p>To be clear, the demo above is a game <i>made with</i> Ascii Mason, not Ascii Mason itself, so there is no security risk.</p>
+    <h2>Redoing everything</h2>
+    <p>This project can't be fixed, but I think some of the general ideas could be turned into a simple and intuitive game-building tool. For one thing, I didn't need to design a whole system for making dialogue trees, or a system for drawing maps with text art, because those things already exist:</p>
+    <ul>
+      <li><a href="https://lvllvl.com" class="yl">lvlllvl</a> is a great browser-based tool for making colored ASCII art, with lots of pixel fonts to choose from.</li>
+      <li><a href="https://yarnspinner.dev/" class="yl">Yarn Spinner</a> is another browser-based tool for making dialogue trees that can integrate with any game project.</li>
+    </ul>
+    <p>Since these pre-existing tools already work really well, the following summer, I instead focused on creating Javascript libraries to hopefully help JS developers get the most out of these tools.</p>
+    <img src="images/codeIcon.png" alt="Code icon" class="di">
+    <a href="javascriptLibraries.html" class="db">Read more about my Javascript Libraries</a>
   </body>
 </html>
