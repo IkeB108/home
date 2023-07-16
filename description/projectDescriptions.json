@@ -111,7 +111,7 @@
     "name":"javascriptLibraries",
     "title":"Javascript Libraries",
     "icons":"interact",
-    "shortDescription":"I've made some Javascript libraries for you to use in your own web projects, particularly if you use P5JS.",
+    "shortDescription":"Some Javascript libraries for developers to use, particularly with P5JS.",
     "thumbnail":"javascriptLibraries.png",
     "thumbnailAlt":"Code icon",
     "date":"Summer of 2022"
