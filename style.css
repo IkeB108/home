@@ -120,6 +120,7 @@ p, a, ul {
   text-align:center;
   margin-top:10px;
   margin-bottom:15px;
+  text-shadow: 3px 3px 1px rgb(124, 124, 124);
 }
 
 #ikebotLogoImage {
