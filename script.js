@@ -2,7 +2,7 @@ console.log("Press 's' to save the webpage contents to the clipboard.")
 document.onkeypress = function(e) { 
   if(e.key == 's'){
     $("#makePageWarning").remove()
-    c = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <title>Ikebot</title>\n  <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n  <meta name=\"description\" content=\"\" />\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n  <link rel=\"icon\" href=\"favicon.png\">\n  <script src=\"https://code.jquery.com/jquery-3.7.0.min.js\" crossorigin=\"anonymous\"></script>\n  \n  \n  <script>\n    function onBuildLoad() {\n      //Create event listeners for double click on portrait\n      let goToMisc = function() { window.location.href = \"miscLinks.html\" }\n      $(\"#ikebotLogoContainer\")[0].addEventListener(\"dblclick\", goToMisc)\n    }\n  </script>\n</head>"
+    c = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <title>Ikebot</title>\n  <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n  <meta name=\"description\" content=\"\" />\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n  <link rel=\"icon\" href=\"favicon.png\">\n  <script src=\"https://code.jquery.com/jquery-3.7.0.min.js\" crossorigin=\"anonymous\"></script>\n  \n  \n  <script>\n    function onBuildLoad() {\n      //Create event listeners for double click on portrait\n      let goToMisc = function() { window.location.href = \"miscLinks.html\" }\n      $(\"#ikeBischofImage\")[0].addEventListener(\"dblclick\", goToMisc); $(\"#ikeBischofImageNarrowScreen\")[0].addEventListener(\"dblclick\", goToMisc)\n    }\n  </script>\n</head>"
     c += `<body style="background-color:black" onload="onBuildLoad()">\n`
     c += document.body.innerHTML.split("<!-- Code injected by live-server -->")[0]
     c += "\n"
@@ -12,7 +12,7 @@ document.onkeypress = function(e) {
   }
 }
 
-function onLoad(){
+function onBuildLoad(){
   fetch("description/projectDescriptions.json")
     .then((response) => response.json())
     .then(generateProjectCards)

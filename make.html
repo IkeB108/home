@@ -13,15 +13,16 @@
   <script>
     function onBuildLoad() {
       //Create event listeners for double click on portrait
-      let goToMisc = function() { window.location.href = "miscLinks.html" }
-      $("#ikebotLogoContainer")[0].addEventListener("dblclick", goToMisc)
+      let goToMisc = function() { window.location.href = "miscLinks.html"; }
+      $("#ikeBischofImage")[0].addEventListener("dblclick", goToMisc)
+      $("#ikeBischofImageNarrowScreen")[0].addEventListener("dblclick", goToMisc)
     }
   </script>
   
   <script src="script.js"></script>
   
 </head>
-<body style="background-color:black" onload="onLoad()">
+<body style="background-color:black" onload="onBuildLoad()">
   
   <div id="ikebotLogoContainer">
     <img src="profile255px.png" id="ikebotLogoImage" alt="A black square-shaped head of a cartoon robot with yellow circular eyes"></img>
