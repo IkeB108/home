@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ikebot</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="../style.css" />
+  <link rel="icon" href="../favicon.png">
+</head>
+  <body style="background-color:black" class="descriptionBody">
+    
+    <div id="ikebotLogoContainer">
+      <a id="ikebotLogoContainerAnchor" href="../">
+        <image src="../profile255px.png" id="ikebotLogoImage" alt="A black square-shaped head of a cartoon robot with yellow circular eyes"></image>
+      </a>
+    </div>
+    <a href="../">
+      <h1 id="ikebotTitle">Ikebot</h1>
+    </a>
+    
+    <!--
+    Instructions:
+      Use Emmet (built into VS Code) to speed up the process
+      Use h2, h3, and p.
+      For images, use class "di" and remember to add alt text
+        img.di[alt] <== Emmet
+      For buttons, use class "db" with anchors or buttons
+        a.db
+        button.db
+      For YouTube embeds, copy the embed from the video and DELETE
+        the width and height properties it auto-generates.
+      
+    -->
+    <img src="images/botw-1000px-with-credit.png" alt="A fantasy map of Hyrule from The Legend of Zelda, appearing to be on an old worn piece of paper." class="di">
+    <a href="images/botw-1000px-with-credit.png" class="db">Expand image</a>
+    <h2>The Most Detailed Map of Hyrule</h2>
+    <p style="color:rgb(167, 167, 167);"><i>August 2023</i></p>
+    <p>To my knowledge, this is the most detailed non-interactive map of Hyrule from The Legend of Zelda: Breath of the Wild. I didn't draw it by hand: instead, I created it with code.</p>
+    <p>You can find excellent interactive maps of Breath of the Wild in a few different places online. These digital interactive maps have a lot more details than mine has overall, but they don't display every detail at once like my static map does.</p>
+    <p>The most popular interactive map is from Zeldamods.org:</p>
+    
+    <img src="images/zeldamods.png" alt="Interactive Hyrule map from Zeldamods" class="di">
+    <a href="https://objmap.zeldamods.org/#/map/z2,0,16" class="db">Visit zeldamods.org map</a>
+    
+    <p>There's also this interactive map I found hosted on Github:</p>
+    <img src="images/mrcheeze.png" alt="Interactive Hyrule map on Github" class="di">
+    <a href="https://mrcheeze.github.io/botw-object-map/" class="db">Visit map on Github</a>
+    
+    <p>These interactive maps use data from a decompilation of the game, which means that the maps use coordinate data that comes straight from the game's code. The game's code had to be reverse-engineered by a large online community to get the coordinates: this reverse-engineering process is called decompiling, and it's really interesting.</p>
+    <button id="showMoreDecomp" class="db" onclick="onShowMoreDecompClick();">Show more info about decompilation</button>
+    <div id="decompDiv" style="border-style:solid; border-width:1px; border-radius: 10px; border-color:lightgrey; padding: 0px 20px; margin-top: 20px; display:none;">
+      <h2 style="margin-top: 20px">Decompiling games</h2>
+      <p>If you're interested in learning more about decompiling games, I really like <a href="https://youtu.be/MToTEqoVv3I?t=168" style="color:rgb(255, 255, 174)">this video from MattKC</a>, but the essential idea is that before a game like Breath of the Wild is sent out to consumers, the game's code is "compiled" (converted) into <i>machine code</i>, which runs faster than the human-readable code that the game was originally written in. Because machine code looks like gibberish to humans, it's hard for others to use the game's code for their own projects, which is important for Nintendo, so that their hard work isn't stolen. The only way to make machine code human-readable again is to "decompile" it, which means reverse-engineering the code to try to figure out what it looked like before it was compiled.</p>
+      <p>But decompiling machine code is not straightforward: you can't just run some sort of conversion algorithm. Instead, it requires a lot of detective work, which you can see in MattKC's video. That's why decompilation projects for big, complicated games like Breath of the Wild require large teams of people, and at the time of writing, Breath of the Wild's decompilation is still incomplete, even after many years.</p>
+    </div>
+    <p>To make my map, I took the coordinate data from the two interactive maps above and wrote some code to plot everything I wanted on one image.</p>
+    <p>My map plots everything from towers and shrines to koroks, ore deposits, crickets, keese, and hearty truffles. It plots every food item in the game that gives an effect (such as increased speed or attack damage).</p>
+    <img src="images/legend.png" alt="Legend of what every icon on my map represents" class="di">
+    <img src="images/legend2.png" alt="Continued legend" class="di">
+    <p>To plot all of these things on one map, the icons had to be very small, which means the map needed to have a very high resolution (25,000 by 20,000 pixels) to achieve the level of quality I wanted. The full-resolution image is much too big to display on a webpage, so the map you see above is a scaled-down copy.</p>
+    <p>I hand-drew all of the icons for the map, but I did not hand-draw the terrain itself. Instead, I used the actual map that's in the game (which I also took from the online decompilation project) and I used a bunch of filters to make it look like it's hand-drawn on an old piece of paper.</p>
+    <p>This is what the map inside the actual game looks like, without the filters:</p>
+    <img src="images/ingameTerrain.png" alt="Colorful in-game map of Hyrule" class="di">
+    <h2>Completion</h2>
+    <p>When the map was complete, I got a large four-foot-wide print of it to hang on my wall. I had the opportunity to display the map at Sac State's Create Make and Share Fair in November 2023.</p>
+    <img src="images/mapCMSFair.jpg" alt="Me in a classroom standing next to my four-foot print of my map of Hyrule, suspended from a PVC pipe frame, and a flowchart showing the process of making the map" class="di">
+    <h2>Potential ideas</h2>
+    <p>In the future, I'd be interested in selling prints of the map if possible. If I did, I'd redo the whole map for a few reasons. I'd like to redesign the icons, add new details like the dragons' flight paths, make the text more readable, and possibly hand-trace the terrain on a real sheet of paper, too.</p>
+    <p>I would also make a map for the newer Zelda game, Tears of the Kingdom, which has a similar decompilation project.</p>
+    <p>I also want to publish resources to make it easier for other developers to create their own Breath of the Wild maps. For example, even though I was able to use pre-existing coordinate data, I still had to modify the coordinates to be plotted correctly on my map, which was not as straightforward as you might think: the two sources I drew from use different coordinate systems.</p>
+    <h2>Download the full-resolution version</h2>
+    <p>Be warned: the full-resolution version of my map is 1 GB large, so it may take a while to download, and you may experience problems trying to view the image without specific software like an image editor. I was successfully able to view and edit the image in GIMP.</p>
+    <p>Please credit me if you share the map anywhere.</p>
+    <a href="https://drive.google.com/file/d/1vlSwa4aju2AZxdFM4bV3znhXurjsPETf/view?usp=sharing" class="db">Download the full-resolution map</a>
+    <script>
+      function onShowMoreDecompClick() {
+        let decompDiv = document.getElementById("decompDiv")
+        decompDiv.style.removeProperty("display")
+        document.getElementById("showMoreDecomp").style.display = "none"
+      }
+    </script>
+  </body>
+</html>

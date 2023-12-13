@@ -44,10 +44,10 @@
     <h2>Inspiration</h2>
     <p>The project was inspired by this Vsauce video from 2012:</p>
     <iframe src="https://www.youtube.com/embed/DAcjV60RnRw?start=230" title="Will We Ever Run Out of New Music?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    <p>Michael cites a post from 2000 that uses music theory to answer the question of how many songs could possibly be written. Here is that post:</p>
+    <p>In the video, Michael cites an article from 2000 that uses music theory to answer the question of how many songs could possibly be written. Here is that article:</p>
     <a href="https://everything2.com/title/How+many+melodies+are+there+in+the+universe%253F" class="db">Visit "How many melodies are there in the universe?"</a>
     <p>To define some boundaries around the problem, the author limits the possible songs to songs that are only one measure long, with a 4-4 time signature (common time), and with only 12 possible notes/pitches that are no shorter than 32nd notes. Notes also can't overlap to make chords, so this calculation would be appropriate for monophonic instruments like wind instruments.</p>
-    <p>I was curious about what the answer would be if you use different parameters from the author's (like different key signatures). That's why I made an interactive calculator, with configurable settings. The calculator uses this formula, which I'll hopefully explain in a future video:</p>
+    <p>It's a great article, but I was curious about what the total number of combinations would be if you use different parameters from the author's (like different key signatures). That's why I made an interactive calculator, with configurable settings. The calculator uses this formula, which I'll hopefully explain in a future video:</p>
     
     <p style="font-family:monospace;color:yellow;">
       Total possibilities = (number of pitches + 1) * ( (number of pitches + 2) ^ (smallest note duration [as an integer] - 1) )
@@ -64,7 +64,7 @@
     <p>That number <i>would</i> match the article's answer, if not for the fact that the article also allows the notes to slide from one pitch to a different pitch, like you'd do on a trombone, and my formula doesn't allow for that.</p>
     
     <h2>Limitations</h2>
-    <p>Music is a lot more nuanced than either formula accounts for. Among many other things, neither formula counts songs that have:</p>
+    <p>Music is a lot more nuanced than either formula accounts for. Most songs have a lot of things that neither formula takes into account, such as:</p>
     <ul>
       <li>Chords</li>
       <li>More than one instrument</li>
@@ -73,18 +73,18 @@
       <li>Specific vocal intonations</li>
       <li>Lyrics</li>
       <li>Percussion</li>
-      <li>And other player instructions, like:</li>
+      <li>Player instructions, like:</li>
       <ul>
         <li>Legato</li>
         <li>Staccato</li>
         <li>Vibrato</li>
         <li>Pizzicato</li>
       </ul>
+      <li>And many, many other things</li>
     </ul>
     <p>These factors would explode the number of possibilities far past the thirty-seven-digit number above. Overall, there isn't really a single objective way to answer the question "how many songs could possibly exist?", but I think my answer could at least be considered a good lower bound, and it's a very big lower bound.</p>
     <h2>Tuplets</h2>
-    <p>My calculator can't do a lot of things, but it can at least account for songs that have tuplets, like triplets and quintets. For example, you could allow for quarter-note triplets (aka crotchet triplets) by entering a "sixth" note as the custom smallest duration*. That's because you could think of a quarter-note triplet as being one third of a half note.</p>
+    <p>My calculator can't do a lot of things, but it can at least account for songs that have tuplets, like triplets and quintets. For example, you could allow for quarter-note triplets (aka crotchet triplets) by entering a "sixth" note as the custom smallest duration (or some multiple of six). That's because you could think of a quarter-note triplet as being one third of a half note, and 1/3 * 1/2 = 1/6.</p>
     <p>The calculator also allows you to change the time signature, which I wanted to mention because you may not notice it at first.</p>
-    <p style="color:lightgrey"><i>*Or some multiple of six</i></p>
   </body>
 </html>

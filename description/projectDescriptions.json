@@ -18,6 +18,15 @@
     "date":"Nov 2022"
   },
   {
+    "name":"botwMap",
+    "title":"The Most Detailed Map of Hyrule",
+    "icons":"interact",
+    "shortDescription": "Find every bug, monster, and plant in Hyrule from Legend of Zelda: Breath of the Wild.",
+    "thumbnail":"botw-1000px-with-credit.png",
+    "thumbnailAlt":"A fantasy map of Hyrule from The Legend of Zelda, appearing to be on an old worn piece of paper.",
+    "date":"Aug 2023"
+  },
+  {
     "name":"doodleTheater",
     "title":"Doodle Theater",
     "icons":"interact",
