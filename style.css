@@ -45,6 +45,10 @@ p, a, ul {
   text-decoration: none;
 }
 
+h2 {
+  margin-top: 50px;
+}
+
 .db { /*Description Button: For buttons in description pages */
   width:fit-content;
   height:fit-content;
