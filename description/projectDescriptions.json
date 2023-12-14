@@ -27,6 +27,15 @@
     "date":"Aug 2023"
   },
   {
+    "name":"acronames",
+    "title":"Acroname Generator",
+    "icons":"interact",
+    "shortDescription": "Create acronyms with the first and last names of you and your peers.",
+    "thumbnail":"acronames.webp",
+    "thumbnailAlt":"A crowd of Roman gods",
+    "date":"Sep 2023"
+  },
+  {
     "name":"doodleTheater",
     "title":"Doodle Theater",
     "icons":"interact",

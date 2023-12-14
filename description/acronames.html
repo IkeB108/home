@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ikebot</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="../style.css" />
+  <link rel="icon" href="../favicon.png">
+</head>
+  <body style="background-color:black" class="descriptionBody" onload="onLoad()">
+    
+    <div id="ikebotLogoContainer">
+      <a id="ikebotLogoContainerAnchor" href="../">
+        <image src="../profile255px.png" id="ikebotLogoImage" alt="A black square-shaped head of a cartoon robot with yellow circular eyes"></image>
+      </a>
+    </div>
+    <a href="../">
+      <h1 id="ikebotTitle">Ikebot</h1>
+    </a>
+    
+    <!--
+    Instructions:
+      Use Emmet (built into VS Code) to speed up the process
+      Use h2, h3, and p.
+      For images, use class "di" and remember to add alt text
+        img.di[alt] <== Emmet
+      For buttons, use class "db" with anchors or buttons
+        a.db
+        button.db
+      For YouTube embeds, copy the embed from the video and DELETE
+        the width and height properties it auto-generates.
+      
+    -->
+    <noscript>
+      <p class="warning">⚠️ This project requires Javascript to run, which appears to be disabled in your browser.</p>
+    </noscript>
+    <h2>Acronames</h2>
+    <p style="color:rgb(167, 167, 167);"><i>September 2023</i></p>
+    <p>This program makes acronyms out of people's names: you input a list of people's full names, and for each person, the program has the option of either using their first name or their last name, which greatly increases the number of possible words that can be spelt. To test it out, press the "Generate Acronames" button below.</p>
+    <h3 id="textInputHeader">Input Names List:</h3>
+    <textarea name="Names Input" id="namesInput" rows="20" placeholder="Input a list of names here...">Ike Bischof
+Emma Watson
+Lucifer Arrivederci
+Beaver Lacrosse</textarea>
+    <label for="minLetterCountSlider">Minimum letters required:</label>
+    <input type="range" id="minLetterCountSlider" min="1" max="30" oninput="onSliderChange()" value="1">
+    <label for="minLetterCountSlider" id="sliderValueText">1 letter</label>
+    <br><br>
+    <input id="includeMultipleSpellingsCheckbox" type="checkbox">
+    <label for="includeMultipleSpellingsCheckbox">Include multiple spellings of the same word</label>
+    <br><br>
+    <button id="generateButton" onclick="onGenerateButtonClick()" class="db not-centered-db" disabled>Generate Acronames</button>
+    <button id="saveButton" onclick="onSaveButtonClick()" class="db not-centered-db" disabled>Save Acronames</button>
+    <p id="progressP" class="status-p">Loading wordlist...</p>
+    <h3>Results:</h3>
+    <textarea name="Results Output" id="resultsOutput" rows="20" placeholder="Results go here..."></textarea>
+    <h2>Features:</h2>
+    <ul>
+      <li>Spell English words with people's names</li>
+      <li>You can give each person more than 2 names (not just a first and last name)</li>
+      <li>The program will only use one name per person</li>
+      <li>People who are put in [brackets] will be considered optional and will not be included in every result</li>
+      <li>Resulting acronames are sorted from longest to shortest</li>
+    </ul>
+    <h2>Why?</h2>
+    <p>My roommates and I wanted a name for our group: a name that was spelt with our first initials. My name is Ike Bischof, and for the sake of this article, my roommates have chosen pseudonyms for themselves: Beaver Lacrosse, Emma Watson, and Lucifer Arrivederci, but their first and last initials have been kept the same. </p>
+    <p>Unfortunately, the only English word that can be spelt with our first initials is "BILE", which isn't the most flattering acronym. But it occured to me that if some of us used our last initial instead of our first, you could spell a lot more words than just "BILE", so I wrote this program, which checks every combination of first and last names against an English word list.</p>
+    <p>Eventually, I optimized the program enough that it could work with very large lists of names, and it even came up with the word "THERMOFORMABLE" as an acroname for every person in my circle of friends.</p>
+    <p>Try inputting the names of your friends, classmates, or colleagues. You can even include middle names if you want to increase the possibilities.</p>
+    <h2>The Solar System</h2>
+    <p>To see what the program is really capable of, we can input the names of the planets in the solar system.</p>
+    <p>Normally, there are no words that can be spelt with the standard initials for the planets, which is why we instead have to use mnemonics like "My Very Educated Mother Just Served Us Nachos" to remember them. However, the planets are named after Roman gods (except Earth and Uranus), and if you allow the program to optionally use the names of their Greek counterparts, then you can spell all sorts of words. </p>
+    <img src="../thumbnails/acronames.webp" alt="A crowd of Roman gods" class="di">
+    <p>The program can come up with even more words if you include optional celestial bodies, like the sun, Pluto, and other dwarf planets like Ceres and Eris. These bodies can be listed in [brackets] to tell the program that they're optional. Click the button below to try it out.</p>
+    <p>The main caveat is that the program will reorder the planets to spell words with them, so the resulting acronames will not help you remember the <i>order</i> of the planets.</p>
+    <button class="db" id="inputPlanetNames" onclick="inputPlanetNames()">Click to make acronames with planets</button>
+    <h2>How it works</h2>
+    <ol>
+      <li>Prune the word list: The program uses a large word list that I downloaded from the internet, but depending on what names you input, many of the words on the word list will be unusable. For example, if none of your names start with an "X", then any words that have an "X" in them are unusable. Also, if your names list only has five people in it, then any words with more than five letters are unusable. So we should make a new word list that only includes words that are possible to be used as acronames. This new word list is called the "pruned" word list.</li>
+      <li>Generate combinations: The program uses a special function that can generate every combination of names. For example, between my four roommates and I, there are: 2 * 2 * 2 * 2 = 8 ways to choose either a first or last name for each of us.</li>
+      <li>Look for matches: For each combination, the program checks whether those initials can be used to spell any of the words in the pruned word list. The pruned word list will often still have thousands of words in it, so to make this process faster, the pruned word list is also <b>indexed</b>, which means that the words are categorized so that they're easier to find. Specifically, the words are categorized by the first three letters in the word when the letters are sorted alphabetically. This can vastly increase the speed of the program.</li>
+    </ol>
+    
+    <style>
+      li {
+        margin-bottom: 15px;
+      }
+      textarea {
+        width: 100%;
+        border-radius:var(--cornerRoundUnit);
+      }
+      #minLetterCountSlider {
+        width: 40%;
+      }
+      
+      .not-centered-db {
+        margin: 15px;
+        margin-left: 0px;
+        display: inline-block
+      }
+      
+      .not-centered-db:disabled {
+        cursor:not-allowed;
+        background-color:rgb(130,130,130);
+        color:rgb(60,60,60)
+      }
+      
+      .status-p {
+        font-style: italic;
+        white-space: pre-line;
+        font-family:monospace;
+        font-size: large;
+      }
+    </style>
+    
+    
+    
+    
+    
+    <script>
+      function inputPlanetNames(){
+        let confirmWipe = confirm("This will erase anything currently in the names list. Proceed?")
+        if(confirmWipe){
+          $("#namesInput").text("Mercury Hermes\r\nVenus Aphrodite\r\nEarth Gaia Terra\/Tellus\r\nMars Ares\r\nJupiter Zeus Iuppiter\/Iovis Diespiter\r\nSaturn Cronus\r\nUranus Ouranos Caelus\r\nNeptune Poseidon\r\n[Pluto Hades]\r\n[Ceres Demeter]\r\n[Eris Discordia]\r\n[Makemake]\r\n[Haumea]\r\n[Sun]")
+          let tempAnchor = $(`<a href="#textInputHeader"></a>`)
+          tempAnchor[0].click();
+          delete tempAnchor
+          $("#resultsOutput").text("")
+          $("#progressP").text("")
+        }
+        
+        
+      }
+      let wordList = '';
+      let resultText = 'no results';
+      let completeResultText = 'no results';
+      
+      function onSliderChange(){
+        let sliderVal = $("#minLetterCountSlider").val()
+        if(sliderVal == "1")$("#sliderValueText").text("1 letter");
+        else $("#sliderValueText").text(sliderVal + " letters");
+        
+      }
+      
+      function isNumeric(str) {
+        if (typeof str != "string") return false // we only process strings!  
+        return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+              !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+      }
+      
+      function onLoad(){
+        
+        if( window.location.href.includes("?dob") ){
+          let age = prompt("ENTER YOUR AGE IN YEARS")
+          while( !isNumeric(age) ){
+            age = prompt("You did not input an integer. Input your age in years.")
+          }
+          if( parseInt(age) < 18){
+            alert("YOU ARE NOT OLD ENOUGH TO USE THIS APPLICATION. REDIRECTING...")
+            window.location.replace("https://pbs.twimg.com/media/FIcddqeVgAAX-sm.jpg")
+          } else {
+            alert("YOU ARE PERMITTED TO USE THIS APPLICATION.")
+          }
+        }
+        //Load the word list
+        $.ajax({
+          url: "acronames-wordlist.txt",
+          dataType: "text",
+          success: (data) => {
+            data = data.replaceAll("\r", "").toUpperCase()
+            wordList = data.split("\n");
+            $("#generateButton").removeAttr("disabled")
+            $("#saveButton").removeAttr("disabled")
+            $("#progressP").text("")
+            delete data
+          }
+        })
+      }
+      
+      function onGenerateButtonClick(){
+        let namesInputVal = $("#namesInput").val()
+        $("#resultsOutput").text("")
+        
+        if(typeof myWorker !== "undefined")myWorker.terminate(); //Stop the worker if it's doing a previous search
+        
+        myWorker = new Worker("acronames-worker.js");
+        
+        myWorker.onmessage = (e) => {
+          if(e.data[0] == "status text"){
+            $("#progressP").text(e.data[1])
+          }
+          if(e.data[0] == "complete progress"){
+            let wordCount = Object.keys(e.data[1]).length
+            let completeText = "Search complete. Found " + wordCount + " words."
+            if(wordCount > 1000)completeText += " Displaying 1000 words."
+            $("#progressP").text(completeText)
+          }
+          if(e.data[0] == "results text"){
+            $("#resultsOutput").text(e.data[1])
+            resultText = e.data[1]
+            completeResultText = e.data[2]
+          }
+          if(e.data[0] == "alert"){
+            alert(e.data[1]);
+          }
+          if(e.data[0] == "setMinLetterSlider"){
+            $("#minLetterCountSlider").val(e.data[1]);
+            onSliderChange();
+          }
+        }
+        
+        myWorker.postMessage([namesInputVal, wordList, $("#minLetterCountSlider").val(), $("#includeMultipleSpellingsCheckbox")[0].checked])
+        
+      }
+      
+      function onSaveButtonClick(){
+        let textToDownload = $("#namesInput").val() + "\n\n" + completeResultText;
+        if(completeResultText.length == 0)textToDownload = $("#namesInput").val() + "\n\nno results"
+        downloadText( textToDownload, "acronames.txt" )
+      }
+      
+  
+      function downloadText(content, fileName) {
+          var a = document.createElement("a");
+          var file = new Blob([content], {type: "text/plain"});
+          a.href = URL.createObjectURL(file);
+          a.download = fileName;
+          a.click();
+      }
+    </script>
+  </body>
+</html>
