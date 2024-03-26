@@ -42,8 +42,8 @@
     <h3 id="textInputHeader">Input Names List:</h3>
     <textarea name="Names Input" id="namesInput" rows="20" placeholder="Input a list of names here...">Ike Bischof
 Emma Watson
-Lucifer Arrivederci
-Beaver Lacrosse</textarea>
+Louis Armstrong
+Bruce Lee</textarea>
     <label for="minLetterCountSlider">Minimum letters required:</label>
     <input type="range" id="minLetterCountSlider" min="1" max="30" oninput="onSliderChange()" value="1">
     <label for="minLetterCountSlider" id="sliderValueText">1 letter</label>
@@ -65,7 +65,7 @@ Beaver Lacrosse</textarea>
       <li>Resulting acronames are sorted from longest to shortest</li>
     </ul>
     <h2>Why?</h2>
-    <p>My roommates and I wanted a name for our group: a name that was spelt with our first initials. My name is Ike Bischof, and for the sake of this article, my roommates have chosen pseudonyms for themselves: Beaver Lacrosse, Emma Watson, and Lucifer Arrivederci, but their first and last initials have been kept the same. </p>
+    <p>My roommates and I wanted a name for our group: a name that was spelt with our first initials. My name is Ike Bischof, and for the sake of this demo, my roommates' names have been changed to Bruce Lee, Emma Watson, and Louis Armstrong, but their first and last initials have been kept the same. </p>
     <p>Unfortunately, the only English word that can be spelt with our first initials is "BILE", which isn't the most flattering acronym. But it occured to me that if some of us used our last initial instead of our first, you could spell a lot more words than just "BILE", so I wrote this program, which checks every combination of first and last names against an English word list.</p>
     <p>Eventually, I optimized the program enough that it could work with very large lists of names, and it even came up with the word "THERMOFORMABLE" as an acroname for every person in my circle of friends.</p>
     <p>Try inputting the names of your friends, classmates, or colleagues. You can even include middle names if you want to increase the possibilities.</p>
@@ -123,11 +123,11 @@ Beaver Lacrosse</textarea>
       function inputPlanetNames(){
         let confirmWipe = confirm("This will erase anything currently in the names list. Proceed?")
         if(confirmWipe){
-          $("#namesInput").text("Mercury Hermes\r\nVenus Aphrodite\r\nEarth Gaia Terra\/Tellus\r\nMars Ares\r\nJupiter Zeus Iuppiter\/Iovis Diespiter\r\nSaturn Cronus\r\nUranus Ouranos Caelus\r\nNeptune Poseidon\r\n[Pluto Hades]\r\n[Ceres Demeter]\r\n[Eris Discordia]\r\n[Makemake]\r\n[Haumea]\r\n[Sun]")
+          $("#namesInput").val("Mercury Hermes\r\nVenus Aphrodite\r\nEarth Gaia Terra\/Tellus\r\nMars Ares\r\nJupiter Zeus Iuppiter\/Iovis Diespiter\r\nSaturn Cronus\r\nUranus Ouranos Caelus\r\nNeptune Poseidon\r\n[Pluto Hades]\r\n[Ceres Demeter]\r\n[Eris Discordia]\r\n[Makemake]\r\n[Haumea]\r\n[Sun]")
           let tempAnchor = $(`<a href="#textInputHeader"></a>`)
           tempAnchor[0].click();
           delete tempAnchor
-          $("#resultsOutput").text("")
+          $("#resultsOutput").val("")
           $("#progressP").text("")
         }
         
@@ -181,7 +181,7 @@ Beaver Lacrosse</textarea>
       
       function onGenerateButtonClick(){
         let namesInputVal = $("#namesInput").val()
-        $("#resultsOutput").text("")
+        $("#resultsOutput").val("")
         
         if(typeof myWorker !== "undefined")myWorker.terminate(); //Stop the worker if it's doing a previous search
         
@@ -198,7 +198,7 @@ Beaver Lacrosse</textarea>
             $("#progressP").text(completeText)
           }
           if(e.data[0] == "results text"){
-            $("#resultsOutput").text(e.data[1])
+            $("#resultsOutput").val(e.data[1])
             resultText = e.data[1]
             completeResultText = e.data[2]
           }

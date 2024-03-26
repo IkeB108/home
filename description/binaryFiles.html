@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ikebot</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  
+  <link rel="stylesheet" type="text/css" href="../style.css" />
+  <link rel="icon" href="../favicon.png">
+</head>
+  <body style="background-color:black" class="descriptionBody">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
+    <script src="p5.min.js" crossorigin="anonymous"></script>
+    
+    <div id="ikebotLogoContainer">
+      <a id="ikebotLogoContainerAnchor" href="../">
+        <image src="../profile255px.png" id="ikebotLogoImage" alt="A black square-shaped head of a cartoon robot with yellow circular eyes"></image>
+      </a>
+    </div>
+    <a href="../">
+      <h1 id="ikebotTitle">Ikebot</h1>
+    </a>
+    
+    <!--
+    Instructions:
+      Use Emmet (built into VS Code) to speed up the process
+      Use h2, h3, and p.
+      For images, use class "di" and remember to add alt text
+        img.di[alt] <== Emmet
+      For buttons, use class "db" with anchors or buttons
+        a.db
+        button.db
+      For YouTube embeds, copy the embed from the video and DELETE
+        the width and height properties it auto-generates.
+      
+    -->
+    <noscript>
+      <p class="warning">⚠️ This project requires Javascript to run, which appears to be disabled in your browser.</p>
+    </noscript>
+    <h2>Binary Editor</h2>
+    <p style="color:rgb(167, 167, 167);"><i>December 2023</i></p>
+    <p>Project description</p>
+    <input type="file" id="fileInput" />
+    <button onclick="readFile()">Read File</button>
+    <br>
+    <canvas style="width:128px;height:128px;" id="myCanvas"></canvas>
+    <script>
+      
+      function setup(){
+        createCanvas(128, 128, $("#myCanvas")[0])
+        background(255)
+      }
+      
+      function drawBinaryStringToCanvas(binaryString){
+        //Update canvas size to fit binaryString
+        let newHeight = ceil(binaryString.length/128)
+        if(newHeight < 128)newHeight = 128;
+        createCanvas(128, newHeight, $("#myCanvas")[0])
+        background(255);
+        
+        loadPixels();
+        let stringIndex = 0;
+        for(let i = 0; i < pixels.length; i += 4){
+          let colVal = 0;
+          if(stringIndex < binaryString.length){
+            colVal = binaryString[stringIndex] * 255
+          }
+          
+          pixels[i] = pixels[i+1] = pixels[i+2] = colVal;
+          stringIndex ++
+        }
+        updatePixels();
+      }
+      //STRING TO BINARY FILE
+      function downloadBinary(stringInput){
+        let binaryData = stringToBitstream(stringInput)
+        let blob = new Blob([binaryData])
+        const downloadLink = document.createElement("a");
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = "output.bin";
+        downloadLink.click();
+      }
+      
+      function stringToBitstream(stringInput) {
+        const length = stringInput.length;
+        const buffer = new ArrayBuffer(Math.ceil(length / 8));
+        const view = new DataView(buffer);
+
+        for (let i = 0; i < length; i++) {
+          const bitValue = stringInput[i] === '1' ? 1 : 0;
+          const byteIndex = Math.floor(i / 8);
+          const bitOffset = i % 8;
+
+          // Set the bit at the current position
+          const existingByte = view.getUint8(byteIndex);
+          const updatedByte = existingByte | (bitValue << (7 - bitOffset));
+          view.setUint8(byteIndex, updatedByte);
+        }
+
+        return buffer;
+      }
+      
+      //FILE TO BINARY STRING
+      function readFile(){
+        const fileInput = document.getElementById('fileInput');
+        const fileBlob = fileInput.files[0];
+        fileToBinaryString(fileBlob, (result) => {
+          console.log(result)
+          drawBinaryStringToCanvas(result)
+        })
+      }
+      
+      function fileToBinaryString(fileBlob, successCallback) {
+        const Uint8ArrayToBinString = (bytes) => bytes.reduce((str, byte) => str + byte.toString(2).padStart(8, '0'), '');
+        fileBlob.arrayBuffer()
+          .then((result) => {
+            const fileArrayBuffer = result;
+            const view = new Uint8Array(fileArrayBuffer)
+            const binString = Uint8ArrayToBinString(view)
+            successCallback(binString)
+          })
+      }
+      
+      
+      
+      
+    </script>
+  </body>
+</html>
