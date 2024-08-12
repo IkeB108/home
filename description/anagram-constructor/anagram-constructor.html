@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ikebot</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="../../style.css" />
+  <link rel="icon" href="../../favicon.png">
+  <style>
+    body {
+      box-sizing: border-box;
+      margin-bottom: 800px;
+    }
+    #letterPoolInputContainer {
+      display: flex;
+      width: 100%;
+      box-sizing: border-box;
+      align-items: center;
+    }
+    #letterPoolInput {
+      width: 100%;
+      margin: 0px 10px;
+    }
+    #letterPoolInput:disabled{
+      background:none;
+      color: white;
+      border-style:none;
+    }
+    /* #letterPoolParagraph {
+      margin: 0px 10px;
+      align-self:center;
+      text-wrap: wrap;
+      flex: 1 1 0;
+    } */
+    label[for="letterPoolInput"]{
+      text-wrap:nowrap;
+      margin-right: 10px;
+    }
+    #finalTextInput{
+      width:100%;
+      box-sizing: border-box;
+      margin-top: 10px;
+    }
+    #finalTextInput[data-contains-deficit-letter="true"]{
+      background-color: rgb(233, 172, 172);
+    }
+    #backToLetterPoolButton{
+      text-wrap: nowrap;
+    }
+    #wordSuggestionDiv{
+      box-sizing: border-box;
+      background-color: rgb(54, 54, 77);
+      padding: 10px;
+      margin-top: 10px;
+    }
+    #wordSuggestionParagraph{
+      margin: 0px;
+      font-size: small;
+    }
+  </style>
+</head>
+  <body style="background-color:black" class="descriptionBody" onload="onBodyLoad()">
+    
+    <div id="ikebotLogoContainer">
+      <a id="ikebotLogoContainerAnchor" href="../../">
+        <image src="../../profile255px.png" id="ikebotLogoImage" alt="A black square-shaped head of a cartoon robot with yellow circular eyes"></image>
+      </a>
+    </div>
+    <a href="../../">
+      <h1 id="ikebotTitle">Ikebot</h1>
+    </a>
+    <noscript>
+      <p class="warning">⚠️ This project requires Javascript to run, which appears to be disabled in your browser.</p>
+    </noscript>
+    <h2>Real-Time Anagram Constructor</h2>
+    <p style="color:rgb(167, 167, 167);"><i>August 2024</i></p>
+    <p>This program assists you with the task of writing, where you can only write using letters in a letter pool.</p>
+    <p>As you draft your message, it automatically removes letters from the pool, and it suggests words that can be spelt with the letters remaining in the pool.</p>
+    <p>It's inspired by <a style="color: rgb(255, 255, 149); text-decoration:underline;" href="https://youtu.be/HaMHoDP1BKI?t=1740">a task from an episode of Taskmaster</a> where contestants have to make a stirring speech using only the letters provided on bunting.</p>
+    <p>Click "Submit" to try it.</p>
+    <br>
+    
+    <div id="letterPoolInputContainer">
+      <label for="letterPoolInput">Letter Pool: </label>
+      <input type="text" id="letterPoolInput" value="epa'taifingaestiiyam.npoglkihoolnpkasmudnrsdcere'ctaaihtmem.iwidaredsvkn!" autocomplete="off">
+      <!-- <p id="letterPoolParagraph" hidden>Lorem ipsum</p> -->
+      <button id="submitLetterPoolButton" type="submit" onclick="onSubmitLetterPoolButtonClick()">Submit</button>
+      <button id="backToLetterPoolButton" onclick="onBackToLetterPoolButtonClick()" hidden>Edit Letter Pool</button>
+    </div>
+    <textarea name="finalTextInput" id="finalTextInput" placeholder="Type your message here..." rows="5" data-contains-deficit-letter="false" oninput="onFinalTextInputChange()" hidden></textarea>
+    <div id="wordSuggestionDiv" hidden>
+      <p id="wordSuggestionParagraph"></p>
+    </div>
+    <script>
+      
+      let letterPool = ""
+      let letterPoolOnSubmit = "" //Remember what the user inputted to the letter pool before hitting "submit"
+      let letterPoolLetterCountOnSubmit = {}
+      function onSubmitLetterPoolButtonClick(){
+        //Hide letter pool input. Show final text input and letter pool paragraph.
+        // $("#letterPoolInput").hide()
+        $("#letterPoolInput").prop("disabled", true)
+        $("#finalTextInput").show()
+        $("#wordSuggestionDiv").show()
+        $("#submitLetterPoolButton").hide()
+        $("#backToLetterPoolButton").show()
+        
+        //Set value of letterPool to contents of letter pool input.
+        letterPoolOnSubmit = $("#letterPoolInput").val()
+        letterPool = stripStringToLettersOnly(letterPoolOnSubmit)
+        letterPoolLetterCountOnSubmit = getLetterCount(letterPool, true)
+        onFinalTextInputChange()
+      }
+      
+      function onBackToLetterPoolButtonClick(){
+        // $("#letterPoolInput").show()
+        $("#letterPoolInput").prop("disabled", false)
+        $("#letterPoolParagraph").hide()
+        $("#finalTextInput").hide()
+        $("#wordSuggestionDiv").hide()
+        $("#submitLetterPoolButton").show()
+        $("#backToLetterPoolButton").hide()
+        $("#letterPoolInput").val(letterPoolOnSubmit)
+      }
+      
+      function stripStringToLettersOnly(string){
+        string = string.toLowerCase()
+         let newString = ""
+         for(let i in string){
+          if(alphabet.includes(string[i]))newString += string[i]
+         }
+        return newString
+      }
+      
+      function onFinalTextInputChange(){
+        //Update the letter pool, subtracting used letters
+        let finalTextInputStripped = stripStringToLettersOnly($("#finalTextInput").val())
+        const textCursorPosition = $("#finalTextInput")[0].selectionStart
+        previousTextCursorPosition = textCursorPosition;
+        usedLettersLetterCount = getLetterCount(finalTextInputStripped, true)
+        let netLetterCount = getLetterCount("", true)
+        let deficitLetterCount = getLetterCount("", true)
+        let atLeastOneDeficitLetter = false
+        for(let i in alphabet){
+          const letter = alphabet[i]
+          const net = letterPoolLetterCountOnSubmit[letter] - usedLettersLetterCount[letter]
+          if(net < 0){
+            deficitLetterCount[letter] = Math.abs(net)
+            atLeastOneDeficitLetter = true
+          }
+          else netLetterCount[letter] = net
+        }
+        $("#finalTextInput").attr("data-contains-deficit-letter", String(atLeastOneDeficitLetter))
+        let netLetterCountString = letterCountToString(netLetterCount)
+        $("#letterPoolInput").val(netLetterCountString)
+        
+        if(!atLeastOneDeficitLetter){
+          requestWordSuggestions(netLetterCountString)
+        }
+        
+        if(atLeastOneDeficitLetter){
+          const deficitLettersString = letterCountToString(deficitLetterCount)
+          $("#wordSuggestionParagraph").text("⚠️ Extra letters used: " + deficitLettersString)
+        }
+        // console.log("change")
+      }
+      
+      //Check to see if text cursor position has changed every 100 ms
+      let intervalToCheckForTextCursorPositionChange = setInterval(checkForTextCursorPositionChange, 100)
+      
+      let previousTextCursorPosition = 0
+      function checkForTextCursorPositionChange(){
+        let currentTextCursorPosition = $("#finalTextInput")[0].selectionStart
+        if(currentTextCursorPosition !== previousTextCursorPosition){
+          onFinalTextInputChange()
+          previousTextCursorPosition = currentTextCursorPosition
+        }
+      }
+      
+      let anagramWebWorker = null
+      
+      function requestWordSuggestions(letterPoolString){
+        //If the user is in the middle of typing a word, limit word suggestions
+        //to words that include the last word the user has typed so far
+        //(Split the text by any non-alphabet characters)
+        const textCursorPosition = $("#finalTextInput")[0].selectionStart
+        const finalTextInputValue = $("#finalTextInput").val().toLowerCase()
+        const finalTextSplitToWords = finalTextInputValue.slice(0, textCursorPosition).split(/[^a-zA-Z]+/);
+        const stringAfterTextCursorPosition = finalTextInputValue.substring( textCursorPosition ).match(/^[A-Za-z]+/) || ""
+        const stringForWordsToInclude = finalTextSplitToWords[finalTextSplitToWords.length - 1] + stringAfterTextCursorPosition
+        
+        anagramWebWorker.postMessage({type:"wordSuggestionRequest", letterPoolString, stringForWordsToInclude})
+      }
+      
+      function onBodyLoad(){
+        //Create the web worker that calculates the anagrams
+        anagramWebWorker = new Worker("anagram-constructor-web-worker.js")
+        anagramWebWorker.onmessage = (e) => {
+          const dataReceived = e.data
+          if(dataReceived.type == "wordSuggestionsArray"){
+            const wordSuggestionsText = dataReceived.content.slice(0, 1000).join(", ")
+            $("#wordSuggestionParagraph").text(wordSuggestionsText)
+          }
+        }
+        
+        
+        //Use jquery to load the word list json file.
+        //The file comes with bitfields already on it
+        //https://wortschatz.uni-leipzig.de/en/download/
+        $.ajax({
+          // url:"merged-word-list_acronames_and_eng_news_2023_1M-words_leipzig_english_corpora.json",
+          url: "NSWL2023_sorted_by_Leipzig_CA_web.json",
+          dataType: "text",
+          success: (data) => {
+            wordList = JSON.parse(data)
+            //Uncomment the below code to test efficiency of "string" equivalents of bitmasks
+            //When I tested this, the performance was much worse than bitwise operations.
+            //For some reason, it seems to perform worse with longer prompts, seemingly prompts
+            //that involve more vareity of letters so they can't get past the first mask as often.
+            //With the taskmaster letter pool: bitmask = 60ms, stringbitmask = 112,535ms
+            // for(let i in wordList){
+              //   wordList[i].stringBitMasks = convertBitMasksArrayToStringBitMasksArray( wordList[i].bitMasks )
+              // }
+              
+            //Pass the loaded wordlist into the web worker
+            anagramWebWorker.postMessage({type:"wordList", content:wordList})
+          }
+        })  
+      }
+      
+      alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
+      
+      function getLetterCount(string, includeZerosBoolean){
+        //Creates a hashmap object of all letters in the word and their frequencies.
+        //If includesZerosBoolean is true, letters with freq zero appear in the hashmap
+        const hashmap = {}
+        if(includeZerosBoolean){
+          alphabet.forEach(e => hashmap[e] = 0)
+        }
+        for(let i in string){
+          if(hashmap.hasOwnProperty(string[i])){
+            hashmap[string[i]] += 1
+          } else {
+            hashmap[string[i]] = 1
+          }
+        }
+        return hashmap
+      }
+      
+      function letterCountToString(letterCountHashmap){
+        let string = ""
+        for(let i in alphabet){
+          string += alphabet[i].repeat(letterCountHashmap[alphabet[i]])
+        }
+        return string
+      }
+      
+      function findWord(word){
+        return wordList.filter( (e) => { return e.word.includes(word) })
+      }
+      
+      function deleteWords(wordsToDeleteString){
+        const wtdarray = wordsToDeleteString.split(" ")
+        for(let i in wtdarray){
+          //Delete this word
+          const wtd = wtdarray[i]
+          wordListSearchLoop: for(let j in wordList){
+            if(wordList[j].word == wtd){
+              console.log(j)
+              wordList.splice(j, 1)
+              break wordListSearchLoop;
+            }
+          }
+        }
+      }
+      
+      makeTextFile = function (text) {
+        var data = new Blob([text], {type: 'text/plain'});
+
+        textFile = window.URL.createObjectURL(data);
+
+        // returns a URL you can use as a href
+        
+        const link = document.createElement("a")
+        link.setAttribute("download", "download.txt")
+        link.href = textFile
+        link.click()
+        // return textFile;
+      };
+    </script>
+  </body>
+</html>

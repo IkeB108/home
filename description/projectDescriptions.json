@@ -1,5 +1,23 @@
 [
   {
+    "name":"botwMap",
+    "title":"The Most Detailed Map of Hyrule",
+    "icons":"interact",
+    "shortDescription": "Find every bug, monster, and plant in Hyrule from Legend of Zelda: Breath of the Wild.",
+    "thumbnail":"botw-1000px-with-credit.png",
+    "thumbnailAlt":"A fantasy map of Hyrule from The Legend of Zelda, appearing to be on an old worn piece of paper.",
+    "date":"Aug 2023"
+  },
+  {
+    "name":"anagramConstructor",
+    "title":"Real-Time Anagram Constructor",
+    "icons":"interact",
+    "shortDescription": "Draft anagrams while getting word suggestions in real time. Inspired by Taskmaster.",
+    "thumbnail":"anagramConstructor.png",
+    "thumbnailAlt":"Colorful bunting with letters printed on it",
+    "date":"Aug 2024"
+  },
+  {
     "name":"dataInColors",
     "title":"Data In Colors",
     "icons":"youtube interact",
@@ -9,22 +27,13 @@
     "date":"Nov 2022"
   },
   {
-    "name":"digitsInColors",
+  "name":"digitsInColors",
     "title":"Digits In Colors",
     "icons":"youtube interact",
     "shortDescription":"Visualize numbers as geometric shapes by breaking them down into their prime factors.",
     "thumbnail":"digitsInColors.png",
     "thumbnailAlt":"A colorful collection of shapes organized in a branching formation to represent the number 108.",
     "date":"Nov 2022"
-  },
-  {
-    "name":"botwMap",
-    "title":"The Most Detailed Map of Hyrule",
-    "icons":"interact",
-    "shortDescription": "Find every bug, monster, and plant in Hyrule from Legend of Zelda: Breath of the Wild.",
-    "thumbnail":"botw-1000px-with-credit.png",
-    "thumbnailAlt":"A fantasy map of Hyrule from The Legend of Zelda, appearing to be on an old worn piece of paper.",
-    "date":"Aug 2023"
   },
   {
     "name":"acronames",

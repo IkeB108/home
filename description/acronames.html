@@ -166,11 +166,15 @@ Bruce Lee</textarea>
         }
         //Load the word list
         $.ajax({
-          url: "acronames-wordlist.txt",
+          url: "anagram-constructor/NSWL2023_sorted_by_Leipzig_CA_web.json",
           dataType: "text",
           success: (data) => {
-            data = data.replaceAll("\r", "").toUpperCase()
-            wordList = data.split("\n");
+            // data = data.replaceAll("\r", "").toUpperCase()
+            // wordList = data.split("\n");
+            wordList = []
+            JSON.parse(data).forEach( (e) => {
+              wordList.push(e.word.toUpperCase())
+            })
             $("#generateButton").removeAttr("disabled")
             $("#saveButton").removeAttr("disabled")
             $("#progressP").text("")
