@@ -1,3 +1,12 @@
+<!--
+NOTE: Word suggestion code is in the anagram web worker file, not here.
+To see errors and console logs from the anagram web worker,
+change your browser's dev console's js context to anagram-web-worker.js.
+
+OTHER NOTES:
+Append "?unoptimized" to url to test the unoptimized version.
+Append "?no-description" to remove description text.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,26 +33,21 @@
       margin: 0px 10px;
     }
     #letterPoolInput:disabled{
+      /* Letter pool is disabled while message input is open */
       background:none;
       color: white;
       border-style:none;
     }
-    /* #letterPoolParagraph {
-      margin: 0px 10px;
-      align-self:center;
-      text-wrap: wrap;
-      flex: 1 1 0;
-    } */
     label[for="letterPoolInput"]{
       text-wrap:nowrap;
       margin-right: 10px;
     }
-    #finalTextInput{
+    #messageInput{
       width:100%;
       box-sizing: border-box;
       margin-top: 10px;
     }
-    #finalTextInput[data-contains-deficit-letter="true"]{
+    #messageInput[data-contains-deficit-letter="true"]{
       background-color: rgb(233, 172, 172);
     }
     #backToLetterPoolButton{
@@ -74,36 +78,53 @@
     <noscript>
       <p class="warning">⚠️ This project requires Javascript to run, which appears to be disabled in your browser.</p>
     </noscript>
-    <h2>Real-Time Anagram Constructor</h2>
+    <h2>Real-Time Anagram Suggester</h2>
     <p style="color:rgb(167, 167, 167);"><i>August 2024</i></p>
-    <p>This program assists you with the task of writing, where you can only write using letters in a letter pool.</p>
-    <p>As you draft your message, it automatically removes letters from the pool, and it suggests words that can be spelt with the letters remaining in the pool.</p>
-    <p>It's inspired by <a style="color: rgb(255, 255, 149); text-decoration:underline;" href="https://youtu.be/HaMHoDP1BKI?t=1740">a task from an episode of Taskmaster</a> where contestants have to make a stirring speech using only the letters provided on the bunting.</p>
-    <p>Click "Submit" to try it.</p>
+    <p class="description">This program assists you with the task of writing, where you can only write using letters in a letter pool.</p>
+    <p class="description">As you draft your message, it automatically removes letters from the pool, and it suggests words that can be spelt with the letters remaining in the pool.</p>
+    <p class="description">It's inspired by <a style="color: rgb(255, 255, 149); text-decoration:underline;" href="https://youtu.be/HaMHoDP1BKI?t=1740">a task from an episode of Taskmaster</a> where contestants have to make a stirring speech using only the letters provided on the bunting.</p>
+    
+    <iframe class="description" src="https://www.youtube.com/embed/Vm0ZAapAP1A" title="Writing Software to Solve This One Taskmaster Task (SoMEπ submission)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <p class="description">Click "Submit" below to try the program.</p>
+    <h2 class="description">Real-Time Anagram Suggester</h2>
     <br>
     
+    <!-- When "Submit" or "Edit Letter Pool" is clicked,
+     jquery shows/hides the messageInput textarea and disables/enables the
+     letter pool input.
+     
+     The letterPoolInput's value is automatically changed on 
+     messageInput change. When the user clicks "Edit Letter Pool",
+     the letterPoolInput's value is reset back to what it was on
+     Submit.
+     -->
     <div id="letterPoolInputContainer">
       <label for="letterPoolInput">Letter Pool: </label>
-      <input type="text" id="letterPoolInput" value="epataifingaestiiyamnpoglkihoolnpkasmudnrsdcerectaaihtmemiwidaredsvkn" autocomplete="off">
-      <!-- epa'taifingaestiiyam.npoglkihoolnpkasmudnrsdcere'ctaaihtmem.iwidaredsvkn! -->
-      <!-- <p id="letterPoolParagraph" hidden>Lorem ipsum</p> -->
-      <button id="submitLetterPoolButton" type="submit" onclick="onSubmitLetterPoolButtonClick()">Submit</button>
+      <!-- Prefill letterPoolInput with letters from Taskmaster -->
+      <input name="letterPoolInput" type="text" id="letterPoolInput" value="epataifingaestiiyamnpoglkihoolnpkasmudnrsdcerectaaihtmemiwidaredsvkn" autocomplete="off">
+      
+      <!-- Submit button is disabled until the word list finishes loading -->
+      <button id="submitLetterPoolButton" type="submit" onclick="onSubmitLetterPoolButtonClick()" disabled>Submit</button>
+      
       <button id="backToLetterPoolButton" onclick="onBackToLetterPoolButtonClick()" hidden>Edit Letter Pool</button>
     </div>
-    <textarea name="finalTextInput" id="finalTextInput" placeholder="Type your message here..." rows="5" data-contains-deficit-letter="false" oninput="onFinalTextInputChange()" hidden></textarea>
+    
+    <textarea name="messageInput" id="messageInput" placeholder="Type your message here..." rows="5" data-contains-deficit-letter="false" oninput="onMessageInputChange()" hidden></textarea>
     <div id="wordSuggestionDiv" hidden>
       <p id="wordSuggestionParagraph"></p>
     </div>
+    
     <script>
       
+      const alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
       let letterPool = ""
-      let letterPoolOnSubmit = "" //Remember what the user inputted to the letter pool before hitting "submit"
-      let letterPoolLetterCountOnSubmit = {}
+      let letterPoolOnSubmit = "" //Stores what the user inputted to the letter pool before hitting "submit"
+      let letterPoolLFTOnSubmit = {} //Stores letter pool's letter frequency table on submit.
+      
       function onSubmitLetterPoolButtonClick(){
-        //Hide letter pool input. Show final text input and letter pool paragraph.
-        // $("#letterPoolInput").hide()
+        //With Jquery: Disable letter pool input & Show message input textarea.
         $("#letterPoolInput").prop("disabled", true)
-        $("#finalTextInput").show()
+        $("#messageInput").show()
         $("#wordSuggestionDiv").show()
         $("#submitLetterPoolButton").hide()
         $("#backToLetterPoolButton").show()
@@ -111,15 +132,15 @@
         //Set value of letterPool to contents of letter pool input.
         letterPoolOnSubmit = $("#letterPoolInput").val()
         letterPool = stripStringToLettersOnly(letterPoolOnSubmit)
-        letterPoolLetterCountOnSubmit = getLetterCount(letterPool, true)
-        onFinalTextInputChange()
+        //Store a letter frequency table for the letter pool
+        letterPoolLFTOnSubmit = getLFT(letterPool)
+        
+        onMessageInputChange()
       }
       
       function onBackToLetterPoolButtonClick(){
-        // $("#letterPoolInput").show()
         $("#letterPoolInput").prop("disabled", false)
-        $("#letterPoolParagraph").hide()
-        $("#finalTextInput").hide()
+        $("#messageInput").hide()
         $("#wordSuggestionDiv").hide()
         $("#submitLetterPoolButton").show()
         $("#backToLetterPoolButton").hide()
@@ -127,6 +148,7 @@
       }
       
       function stripStringToLettersOnly(string){
+        //Removes non-alphabet characters and makes the string lowercase only
         string = string.toLowerCase()
          let newString = ""
          for(let i in string){
@@ -135,160 +157,162 @@
         return newString
       }
       
-      function onFinalTextInputChange(){
-        //Update the letter pool, subtracting used letters
-        let finalTextInputStripped = stripStringToLettersOnly($("#finalTextInput").val())
-        const textCursorPosition = $("#finalTextInput")[0].selectionStart
-        previousTextCursorPosition = textCursorPosition;
-        usedLettersLetterCount = getLetterCount(finalTextInputStripped, true)
-        let netLetterCount = getLetterCount("", true)
-        let deficitLetterCount = getLetterCount("", true)
+      function onMessageInputChange(){
+        //When the messageInput textarea's value is changed by the user,
+        //Update the letter pool. Start with the letter pool's 
+        //letter frequency table on "Submit" and subtract all letters
+        //used in the message.
+        //Then, request new word suggestions.
+        let messageInputStripped = stripStringToLettersOnly($("#messageInput").val())
+        usedLettersLFT = getLFT(messageInputStripped)
+        let netLFT = getLFT("") //Letter frequency table of the updated letter pool
+        let deficitLFT = getLFT("") //LFT of all letters in the message that exceed what's available in the letter pool.
         let atLeastOneDeficitLetter = false
+        
+        //Set all values in the netLFT
         for(let i in alphabet){
           const letter = alphabet[i]
-          const net = letterPoolLetterCountOnSubmit[letter] - usedLettersLetterCount[letter]
+          const net = letterPoolLFTOnSubmit[letter] - usedLettersLFT[letter]
           if(net < 0){
-            deficitLetterCount[letter] = Math.abs(net)
+            deficitLFT[letter] = Math.abs(net)
             atLeastOneDeficitLetter = true
           }
-          else netLetterCount[letter] = net
+          else netLFT[letter] = net
         }
-        $("#finalTextInput").attr("data-contains-deficit-letter", String(atLeastOneDeficitLetter))
-        let netLetterCountString = letterCountToString(netLetterCount)
-        $("#letterPoolInput").val(netLetterCountString)
+        
+        //The messageInput's "data-contains-deficit-letter" attribute
+        //tells the CSS whether to make the textarea red as a warning.
+        $("#messageInput").attr("data-contains-deficit-letter", String(atLeastOneDeficitLetter))
+        
+        //Convert netLFT to a string for the user to see as the updated letter pool.
+        let netLFTString = LFTToString(netLFT)
+        $("#letterPoolInput").val(netLFTString)
+        
+        //Store the new position of the text cursor
+        const textCursorPosition = $("#messageInput")[0].selectionStart
+        previousTextCursorPosition = textCursorPosition;
         
         if(!atLeastOneDeficitLetter){
-          requestWordSuggestions(netLetterCountString)
+          requestWordSuggestions(netLFTString)
         }
         
         if(atLeastOneDeficitLetter){
-          const deficitLettersString = letterCountToString(deficitLetterCount)
+          const deficitLettersString = LFTToString(deficitLFT)
           $("#wordSuggestionParagraph").text("⚠️ Extra letters used: " + deficitLettersString)
         }
-        // console.log("change")
       }
       
-      //Check to see if text cursor position has changed every 100 ms
+      //Check every 100ms to see if text cursor position has changed.
+      //If so, update the word suggestions.
       let intervalToCheckForTextCursorPositionChange = setInterval(checkForTextCursorPositionChange, 100)
+      //(I've used a 100ms interval instead of JS events because
+      //there aren't proper JS events for when the text cursor position changes)
       
       let previousTextCursorPosition = 0
       function checkForTextCursorPositionChange(){
-        let currentTextCursorPosition = $("#finalTextInput")[0].selectionStart
+        //If the text cursor position has changed, update the word suggestions
+        //to only suggest words that contain the string adjacent to the cursor.
+        let currentTextCursorPosition = $("#messageInput")[0].selectionStart
         if(currentTextCursorPosition !== previousTextCursorPosition){
-          onFinalTextInputChange()
-          previousTextCursorPosition = currentTextCursorPosition
+          //Call onMessageInputChange() to update the word suggestions.
+          onMessageInputChange()
+          previousTextCursorPosition = currentTextCursorPosition //For future reference
         }
       }
       
-      let anagramWebWorker = null
       
       function requestWordSuggestions(letterPoolString){
+        //Post a message to the anagram web worker to get word suggestions.
+        
         //If the user is in the middle of typing a word, limit word suggestions
         //to words that include the last word the user has typed so far
         //(Split the text by any non-alphabet characters)
-        const textCursorPosition = $("#finalTextInput")[0].selectionStart
-        const finalTextInputValue = $("#finalTextInput").val().toLowerCase()
-        const finalTextSplitToWords = finalTextInputValue.slice(0, textCursorPosition).split(/[^a-zA-Z]+/);
-        const stringAfterTextCursorPosition = finalTextInputValue.substring( textCursorPosition ).match(/^[A-Za-z]+/) || ""
-        const stringForWordsToInclude = finalTextSplitToWords[finalTextSplitToWords.length - 1] + stringAfterTextCursorPosition
-        
+        const textCursorPosition = $("#messageInput")[0].selectionStart
+        const messageInputValue = $("#messageInput").val().toLowerCase()
+        const messageSplitToWords = messageInputValue.slice(0, textCursorPosition).split(/[^a-zA-Z]+/);
+        const stringAfterTextCursorPosition = messageInputValue.substring( textCursorPosition ).match(/^[A-Za-z]+/) || ""
+        const stringForWordsToInclude = messageSplitToWords[messageSplitToWords.length - 1] + stringAfterTextCursorPosition
         anagramWebWorker.postMessage({type:"wordSuggestionRequest", letterPoolString, stringForWordsToInclude})
       }
       
+      //Web worker for calculating word suggestions is loaded on
+      //onBodyLoad()
+      let anagramWebWorker = null
+      
       function onBodyLoad(){
-        //Create the web worker that calculates the anagrams
-        anagramWebWorker = new Worker("anagram-constructor-web-worker.js")
+        //Create the web worker that calculates the word suggestions
+        anagramWebWorker = new Worker("anagram-web-worker.js")
+        
+        //Remove description paragraphs with jquery if the url contains ?no-description
+        if(window.location.href.includes("?no-description")){
+          $(".description").remove()
+        }
+        
+        //Function for receiving messages from anagramWebWorker
         anagramWebWorker.onmessage = (e) => {
           const dataReceived = e.data
           if(dataReceived.type == "wordSuggestionsArray"){
+            //Only store the first 1000 words (sorted by frequency in English)
             const wordSuggestionsText = dataReceived.content.slice(0, 1000).join(", ")
             $("#wordSuggestionParagraph").text(wordSuggestionsText)
           }
         }
         
-        
-        //Use jquery to load the word list json file.
-        //The file comes with bitfields already on it
+        //Use jquery AJAX to load the word list json file.
+        //The file comes with bitfields already precalculated.
+        //Word list is NSWL2023 words, but sorted by frequency according to
+        //a word list from:
         //https://wortschatz.uni-leipzig.de/en/download/
+        
         $.ajax({
-          // url:"merged-word-list_acronames_and_eng_news_2023_1M-words_leipzig_english_corpora.json",
           url: "NSWL2023_sorted_by_Leipzig_CA_web.json",
           dataType: "text",
           success: (data) => {
-            wordList = JSON.parse(data)
-            //Uncomment the below code to test efficiency of "string" equivalents of bitmasks
-            //When I tested this, the performance was much worse than bitwise operations.
-            //For some reason, it seems to perform worse with longer prompts, seemingly prompts
-            //that involve more vareity of letters so they can't get past the first mask as often.
-            //With the taskmaster letter pool: bitmask = 60ms, stringbitmask = 112,535ms
-            // for(let i in wordList){
-              //   wordList[i].stringBitMasks = convertBitMasksArrayToStringBitMasksArray( wordList[i].bitMasks )
-              // }
-              
-            //Pass the loaded wordlist into the web worker
-            anagramWebWorker.postMessage({type:"wordList", content:wordList})
+            wordList = JSON.parse(data) //Store wordList as a global variable
+            //Pass the loaded wordlist to the web worker.
+            //While we're at it, tell the anagram web worker whether we're using the unoptimized method (letter frequency tables).
+            const useUnoptimized = window.location.href.includes("?unoptimized")
+            anagramWebWorker.postMessage({type:"wordList", content:wordList, useUnoptimized})
+            
+            //Enable the "Submit" button
+            $("#submitLetterPoolButton").prop("disabled", false)
           }
         })  
       }
       
-      alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
-      
-      function getLetterCount(string, includeZerosBoolean){
-        //Creates a hashmap object of all letters in the word and their frequencies.
-        //If includesZerosBoolean is true, letters with freq zero appear in the hashmap
-        const hashmap = {}
-        if(includeZerosBoolean){
-          alphabet.forEach(e => hashmap[e] = 0)
-        }
+      function getLFT(string){
+        //Create a Letter Frequency Table:
+        //A JS object mapping all letters to their frequency in the string.
+        //Ex. {"a": 1, "b": 0, "c": 2, ... }
+        const LFT = {}
+        alphabet.forEach(e => LFT[e] = 0)
         for(let i in string){
-          if(hashmap.hasOwnProperty(string[i])){
-            hashmap[string[i]] += 1
-          } else {
-            hashmap[string[i]] = 1
-          }
+          LFT[string[i]] += 1
         }
-        return hashmap
+        return LFT
       }
       
-      function letterCountToString(letterCountHashmap){
+      function LFTToString(LFT){
+        //Convert a letter frequency table into a string
+        //where letters are repeated according to their count
+        //(letters are sorted alphabetically)
         let string = ""
         for(let i in alphabet){
-          string += alphabet[i].repeat(letterCountHashmap[alphabet[i]])
+          string += alphabet[i].repeat(LFT[alphabet[i]])
         }
         return string
       }
       
-      function findWord(word){
-        return wordList.filter( (e) => { return e.word.includes(word) })
-      }
-      
-      function deleteWords(wordsToDeleteString){
-        const wtdarray = wordsToDeleteString.split(" ")
-        for(let i in wtdarray){
-          //Delete this word
-          const wtd = wtdarray[i]
-          wordListSearchLoop: for(let j in wordList){
-            if(wordList[j].word == wtd){
-              console.log(j)
-              wordList.splice(j, 1)
-              break wordListSearchLoop;
-            }
-          }
-        }
-      }
-      
-      makeTextFile = function (text) {
-        var data = new Blob([text], {type: 'text/plain'});
+      //Write a text file (for debugging)
+      makeTextFileFromString = function (string) {
+        var data = new Blob([string], {type: 'text/plain'});
 
         textFile = window.URL.createObjectURL(data);
 
-        // returns a URL you can use as a href
-        
         const link = document.createElement("a")
         link.setAttribute("download", "download.txt")
         link.href = textFile
         link.click()
-        // return textFile;
       };
     </script>
   </body>
