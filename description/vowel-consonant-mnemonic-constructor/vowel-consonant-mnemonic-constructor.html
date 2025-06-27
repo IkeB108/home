@@ -1,0 +1,281 @@
+<!--
+NOTE: Word suggestion code is in the anagram web worker file, not here.
+To see errors and console logs from the anagram web worker,
+change your browser's dev console's js context to anagram-web-worker.js.
+
+OTHER NOTES:
+Append "?unoptimized" to url to test the unoptimized version.
+Append "?no-description" to remove description text.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ikebot</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="../../style.css" />
+  <link rel="icon" href="../../favicon.png">
+  <style>
+    body {
+      box-sizing: border-box;
+      margin-bottom: 800px;
+    }
+    #vowelConsonantPatternInputContainer {
+      display: flex;
+      width: 100%;
+      box-sizing: border-box;
+      align-items: center;
+    }
+    #vowelConsonantPatternInput {
+      width: 100%;
+      margin: 0px 10px;
+    }
+    #vowelConsonantPatternInput:disabled{
+      /* Letter pool is disabled while message input is open */
+      background:none;
+      color: white;
+      border-style:none;
+    }
+    label[for="vowelConsonantPatternInput"]{
+      text-wrap:nowrap;
+      margin-right: 10px;
+    }
+    #messageInput{
+      width:100%;
+      box-sizing: border-box;
+      margin-top: 10px;
+    }
+    #messageInput[data-contains-deficit-letter="true"]{
+      background-color: rgb(233, 172, 172);
+    }
+    #backToVowelConsonantPatternButton{
+      text-wrap: nowrap;
+    }
+    #wordSuggestionDiv{
+      box-sizing: border-box;
+      background-color: rgb(54, 54, 77);
+      padding: 10px;
+      margin-top: 10px;
+    }
+    #wordSuggestionParagraph{
+      margin: 0px;
+      font-size: small;
+    }
+  </style>
+</head>
+  <body style="background-color:black" class="descriptionBody" onload="onBodyLoad()">
+    
+    <div id="ikebotLogoContainer">
+      <a id="ikebotLogoContainerAnchor" href="../../">
+        <image src="../../profile255px.png" id="ikebotLogoImage" alt="A black square-shaped head of a cartoon robot with yellow circular eyes"></image>
+      </a>
+    </div>
+    <a href="../../">
+      <h1 id="ikebotTitle">Ikebot</h1>
+    </a>
+    <noscript>
+      <p class="warning">⚠️ This project requires Javascript to run, which appears to be disabled in your browser.</p>
+    </noscript>
+    <h2>Real-Time Vowel-Consonant Mnemonic Suggester</h2>
+    <p style="color:rgb(167, 167, 167);"><i>August 2024</i></p>
+    <p class="description">This program assists you with writing mnemonics that use vowels and consonants to help you remember binary information.</p>
+    <p class="description">It's inspired by <a style="color: rgb(255, 255, 149); text-decoration:underline;" href="https://youtu.be/0mQYqBmB1xU">a task from an episode of Taskmaster</a> where contestants have to invent a new way to memorize the number of days in each month of the year.</p>
+    
+    <!-- <iframe class="description" src="https://www.youtube.com/embed/Vm0ZAapAP1A" title="Writing Software to Solve This One Taskmaster Task (SoMEπ submission)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+    <p class="description">Click "Submit" below to try the program.</p>
+    <h2 class="description">Real-Time Vowel-Consonant Mnemonic Suggester</h2>
+    <br>
+    
+    <!-- When "Submit" or "Edit Pattern" is clicked,
+     jquery shows/hides the messageInput textarea and disables/enables the
+     vowel consonant pattern input.
+     -->
+    <div id="vowelConsonantPatternInputContainer">
+      <label for="vowelConsonantPatternInput" id="vowelConsonantPatternInputLabel">Vowel-Consonant Pattern: <mark style="background-color: white; color:black" id="patternInsideHighlight"></mark><span id="patternOutsideHighlight"></span></label>
+      <!-- Prefill vowelConsonantPatternInput with pattern for days in months of the year -->
+      <input name="vowelConsonantPatternInput" type="text" id="vowelConsonantPatternInput" value="cycvcvccvcvc" autocomplete="off">
+      
+      <!-- Submit button is disabled until the word list finishes loading -->
+      <button id="submitVowelConsonantPatternButton" type="submit" onclick="onSubmitVowelConsonantPatternButtonClick()" disabled>Submit</button>
+      
+      <button id="backToVowelConsonantPatternButton" onclick="onBackToVowelConsonantPatternButtonClick()" hidden>Edit Pattern</button>
+    </div>
+    
+    <textarea name="messageInput" id="messageInput" placeholder="Type your message here..." rows="5" data-contains-deficit-letter="false" oninput="onMessageInputChange()" hidden></textarea>
+    <div id="wordSuggestionDiv" hidden>
+      <p id="wordSuggestionParagraph"></p>
+    </div>
+    
+    <script>
+      
+      const alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
+      let vowelConsonantPattern = ""
+      let vowelConsonantPatternOnSubmit = "" //Stores what the user inputted as the vowel consonant pattern before hitting "submit"
+      
+      function onSubmitVowelConsonantPatternButtonClick(){
+        //With Jquery: Disable letter pool input & Show message input textarea.
+        $("#messageInput").show()
+        $("#wordSuggestionDiv").show()
+        $("#submitVowelConsonantPatternButton").hide()
+        $("#backToVowelConsonantPatternButton").show()
+        
+        //Set value of vowelConsonantPattern to contents of letter pool input.
+        vowelConsonantPatternOnSubmit = $("#vowelConsonantPatternInput").val()
+        vowelConsonantPattern = stripStringToLettersOnly(vowelConsonantPatternOnSubmit)
+        $("#vowelConsonantPatternInput").prop("disabled", true)
+        $("#vowelConsonantPatternInput").val("")
+        //Store a letter frequency table for the letter pool
+        onMessageInputChange()
+        updateVowelConsonantPatternInputLabel()
+      }
+      
+      function onBackToVowelConsonantPatternButtonClick(){
+        $("#vowelConsonantPatternInput").prop("disabled", false)
+        $("#messageInput").hide()
+        $("#wordSuggestionDiv").hide()
+        $("#submitVowelConsonantPatternButton").show()
+        $("#backToVowelConsonantPatternButton").hide()
+        $("#vowelConsonantPatternInput").val(vowelConsonantPatternOnSubmit)
+        updateVowelConsonantPatternInputLabel()
+      }
+      
+      function stripStringToLettersOnly(string){
+        //Removes non-alphabet characters and makes the string lowercase only
+        string = string.toLowerCase()
+         let newString = ""
+         for(let i in string){
+          if(alphabet.includes(string[i]))newString += string[i]
+         }
+        return newString
+      }
+      
+      function onMessageInputChange(){
+        const messageInputLength = $("#messageInput").val().toLowerCase().replace(/[^a-zA-Z]/g, '').length
+        let remainingVowelConsonantPattern = vowelConsonantPattern.slice( messageInputLength )
+        requestWordSuggestions(remainingVowelConsonantPattern)
+        updateVowelConsonantPatternInputLabel()
+      }
+      
+      function updateVowelConsonantPatternInputLabel(){
+        const messageInputLength = $("#messageInput").val().toLowerCase().replace(/[^a-zA-Z]/g, '').length
+        let textInsideHighlight = vowelConsonantPattern.slice(0, messageInputLength)
+        let textOutsideHighlight = vowelConsonantPattern.slice(messageInputLength, vowelConsonantPattern.length)
+        
+        if($("#messageInput").is(":hidden")){
+          textInsideHighlight = ""
+          textOutsideHighlight = ""
+        }
+        
+        $("#patternInsideHighlight").text(textInsideHighlight)
+        $("#patternOutsideHighlight").text(textOutsideHighlight)
+        
+        let matches = messageInputMatchesVowelConsonantPattern()
+        if(matches){
+          $("#patternInsideHighlight").css("background-color", "#ffffff")
+        } else {
+          $("#patternInsideHighlight").css("background-color", "#ff8888")
+        }
+      }
+      
+      
+      
+      function requestWordSuggestions(vowelConsonantPatternString){
+        //Request words that use the vowel consonant pattern that comes after the cursor's current position in the message input
+        
+        //Post a message to the web worker to get word suggestions.
+        vcWebWorker.postMessage({type:"wordSuggestionRequest", vowelConsonantPatternString})
+      }
+      
+      //Web worker for calculating word suggestions is loaded on
+      //onBodyLoad()
+      let vcWebWorker = null
+      
+      function onBodyLoad(){
+        //Remove description paragraphs with jquery if the url contains ?no-description
+        if(window.location.href.includes("?no-description")){
+          $(".description").remove()
+        }
+        
+        //Create the web worker that calculates the word suggestions
+        vcWebWorker = new Worker("vowel-consonant-web-worker.js")
+        
+        //Function for receiving messages from anagramWebWorker
+        vcWebWorker.onmessage = (e) => {
+          const dataReceived = e.data
+          if(dataReceived.type == "wordSuggestionsArray"){
+            //Only store the first 1000 words (sorted by frequency in English)
+            const wordSuggestionsText = dataReceived.content.slice(0, 1000).join(", ")
+            allWordSuggestions = dataReceived.content
+            $("#wordSuggestionParagraph").text(wordSuggestionsText)
+          }
+        }
+        
+        //Use jquery AJAX to load the word list json file.
+        //The file comes with bitfields already precalculated.
+        //Word list is NSWL2023 words, but sorted by frequency according to
+        //a word list from:
+        //https://wortschatz.uni-leipzig.de/en/download/
+        
+        $.ajax({
+          url: "../anagram-constructor/NSWL2023_sorted_by_Leipzig_CA_web.json",
+          dataType: "text",
+          success: (data) => {
+            wordList = JSON.parse(data) //Store wordList as a global variable
+            //Pass the loaded wordlist to the web worker.
+            vcWebWorker.postMessage({type:"wordList", content:wordList})
+            
+            //Enable the "Submit" button
+            $("#submitVowelConsonantPatternButton").prop("disabled", false)
+          }
+        })  
+      }
+      
+      function messageInputMatchesVowelConsonantPattern(){
+        let messageInputStripped = $("#messageInput").val().toLowerCase().replace(/[^a-zA-Z]/g, '')
+        if( vowelConsonantPattern.length < messageInputStripped.length ) return false
+        
+        for(let i = 0; i < messageInputStripped.length; i ++){
+          let letterType = letterTypeMap[messageInputStripped[i]]
+          if(letterType !== vowelConsonantPattern[i]) return false
+        }
+        
+        return true
+      }
+      
+      
+      
+      const letterTypeMap = {
+        "a": "v",
+        "b": "c",
+        "c": "c",
+        "d": "c",
+        "e": "v",
+        "f": "c",
+        "g": "c",
+        "h": "c",
+        "i": "v",
+        "j": "c",
+        "k": "c",
+        "l": "c",
+        "m": "c",
+        "n": "c",
+        "o": "v",
+        "p": "c",
+        "q": "c",
+        "r": "c",
+        "s": "c",
+        "t": "c",
+        "u": "v",
+        "v": "c",
+        "w": "c",
+        "x": "c",
+        "y": "y",
+        "z": "c",
+      }
+      
+      
+    </script>
+  </body>
+</html>

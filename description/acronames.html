@@ -44,9 +44,13 @@
 Emma Watson
 Louis Armstrong
 Bruce Lee</textarea>
-    <label for="minLetterCountSlider">Minimum letters required:</label>
-    <input type="range" id="minLetterCountSlider" min="1" max="30" oninput="onSliderChange()" value="1">
-    <label for="minLetterCountSlider" id="sliderValueText">1 letter</label>
+    <label for="minLetterCountSlider">Minimum letters allowed:</label>
+    <input class="letterCountSlider" type="range" id="minLetterCountSlider" min="1" max="30" oninput="onSliderChange('min')" value="1">
+    <label for="minLetterCountSlider" id="minSliderValueText">1 letter</label>
+    <br>
+    <label for="maxLetterCountSlider">Maximum letters allowed:</label>
+    <input class="letterCountSlider" type="range" id="maxLetterCountSlider" min="1" max="30" oninput="onSliderChange('max')" value="30">
+    <label for="maxLetterCountSlider" id="maxSliderValueText">30 letters</label>
     <br><br>
     <input id="includeMultipleSpellingsCheckbox" type="checkbox">
     <label for="includeMultipleSpellingsCheckbox">Include multiple spellings of the same word</label>
@@ -91,7 +95,7 @@ Bruce Lee</textarea>
         width: 100%;
         border-radius:var(--cornerRoundUnit);
       }
-      #minLetterCountSlider {
+      .letterCountSlider {
         width: 40%;
       }
       
@@ -129,6 +133,9 @@ Bruce Lee</textarea>
           delete tempAnchor
           $("#resultsOutput").val("")
           $("#progressP").text("")
+          $("#minLetterCountSlider").val(1); onSliderChange("min");
+          $("#maxLetterCountSlider").val(30); onSliderChange("max");
+          
         }
         
         
@@ -137,10 +144,10 @@ Bruce Lee</textarea>
       let resultText = 'no results';
       let completeResultText = 'no results';
       
-      function onSliderChange(){
-        let sliderVal = $("#minLetterCountSlider").val()
-        if(sliderVal == "1")$("#sliderValueText").text("1 letter");
-        else $("#sliderValueText").text(sliderVal + " letters");
+      function onSliderChange(minOrMax){
+        let sliderVal = $("#" + minOrMax + "LetterCountSlider").val()
+        if(sliderVal == "1")$("#" + minOrMax + "SliderValueText").text("1 letter");
+        else $("#" + minOrMax + "SliderValueText").text(sliderVal + " letters");
         
       }
       
@@ -187,6 +194,13 @@ Bruce Lee</textarea>
         let namesInputVal = $("#namesInput").val()
         $("#resultsOutput").val("")
         
+        //min cannot be more than max. If so, set min to max value
+        if(parseInt($("#minLetterCountSlider").val()) > parseInt($("#maxLetterCountSlider").val())){
+          $("#minLetterCountSlider").val($("#maxLetterCountSlider").val())
+          onSliderChange("min")
+        }
+        
+        
         if(typeof myWorker !== "undefined")myWorker.terminate(); //Stop the worker if it's doing a previous search
         
         myWorker = new Worker("acronames-worker.js");
@@ -215,7 +229,7 @@ Bruce Lee</textarea>
           }
         }
         
-        myWorker.postMessage([namesInputVal, wordList, $("#minLetterCountSlider").val(), $("#includeMultipleSpellingsCheckbox")[0].checked])
+        myWorker.postMessage([namesInputVal, wordList, $("#minLetterCountSlider").val(), $("#maxLetterCountSlider").val(), $("#includeMultipleSpellingsCheckbox")[0].checked])
         
       }
       

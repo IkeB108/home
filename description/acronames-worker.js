@@ -64,7 +64,9 @@ onmessage = (e) => {
   let namesInputVal = e.data[0];
   let wordList = e.data[1];
   let minLetterSliderVal = e.data[2];
-  let includeMultipleSpellings = e.data[3];
+  let maxLetterSliderVal = e.data[3];
+  console.log(maxLetterSliderVal)
+  let includeMultipleSpellings = e.data[4];
   fullNames = namesInputVal.split("\n")
   
   //Remove any lines that are empty
@@ -81,6 +83,10 @@ onmessage = (e) => {
   if(minLetterSliderVal > maximumWordLength){
     postMessage(["setMinLetterSlider", maximumWordLength])
     minLetterSliderVal = maximumWordLength;
+  }
+  
+  if(maxLetterSliderVal < maximumWordLength){
+    maximumWordLength = maxLetterSliderVal;
   }
   
   minimumWordLength = fullNames.filter( e => !e.includes("[") && !e.includes("]")).length
